@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/sample.dart';
+import 'package:flutter_application_1/homepage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: "Nunito",
       ),
-      home: const Sample(),
+      home: const HomePage(),
     );
   }
 }
