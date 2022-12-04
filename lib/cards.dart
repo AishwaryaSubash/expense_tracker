@@ -65,7 +65,7 @@ class Cards extends StatelessWidget {
             ),
             const Gap(10),
             const Text(
-              "₹100,000,000",
+              "₹ 100,000,000",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 25,
@@ -100,6 +100,7 @@ class Cards extends StatelessWidget {
                   'assets/images/mc.png',
                   width: 100,
                   height: 100,
+                  colorBlendMode: BlendMode.softLight,
                 ),
               ],
             )
