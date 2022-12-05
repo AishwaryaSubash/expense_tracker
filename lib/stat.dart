@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/a.dart';
 import 'package:flutter_application_1/bottomnavigation.dart';
+import 'package:flutter_application_1/chart.dart';
 import 'package:gap/gap.dart';
 
 class Stat extends StatelessWidget {
@@ -59,6 +61,8 @@ class Stat extends StatelessWidget {
                   ),
                 ],
               ),
+              // const Chart(),
+              const BarChartSample1(),
             ],
           ),
         ),
