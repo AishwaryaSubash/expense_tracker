@@ -10,6 +10,18 @@ class Toggler extends StatefulWidget {
 class _TogglerState extends State<Toggler> {
   int isEnabled = 1;
   final animationDuration = const Duration(milliseconds: 500);
+  late AnimationController controller;
+  late Animation colorAnimation;
+  late Animation sizeAnimation;
+  @override
+  // void initState() {
+  //   controller=AnimationController(duration: const Duration(seconds: 2),vsync: );
+  //   colorAnimation =
+  //       ColorTween(begin: Colors.blue, end: Colors.yellow).animate(controller);
+  //   sizeAnimation = Tween<double>(begin: 100.0, end: 200.0).animate(controller);
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
@@ -26,15 +38,19 @@ class _TogglerState extends State<Toggler> {
             child: Container(
               padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
               decoration: BoxDecoration(
-                //color: (isEnabled == 1) ? Color(0xff1d2a31) : Color(0xffffffff),
+                color: (isEnabled == 1)
+                    ? const Color(0xff1d2a31)
+                    : const Color(0xffffffff),
                 borderRadius: const BorderRadius.horizontal(
                   left: Radius.circular(50),
                 ),
               ),
-              child: const Text(
+              child: Text(
                 "Weekly",
                 style: TextStyle(
-                  color: Color(0xffffffff),
+                  color: (isEnabled == 1)
+                      ? const Color(0xffffffff)
+                      : const Color(0xFF979797),
                 ),
               ),
             ),
@@ -46,16 +62,21 @@ class _TogglerState extends State<Toggler> {
               });
             },
             child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.horizontal(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.horizontal(
                   right: Radius.circular(50),
                 ),
+                color: (isEnabled == 2)
+                    ? const Color(0xff1d2a31)
+                    : const Color(0xffffffff),
               ),
               padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-              child: const Text(
+              child: Text(
                 "Monthly",
                 style: TextStyle(
-                  color: Color(0xffffffff),
+                  color: (isEnabled == 2)
+                      ? const Color(0xffffffff)
+                      : const Color(0xFF979797),
                 ),
               ),
             ),

@@ -51,9 +51,9 @@ class _ChartState extends State<Chart> {
         boxShadow: [
           BoxShadow(
             color: Colors.grey.shade600,
-            spreadRadius: 4,
-            blurRadius: 10,
-            offset: const Offset(0, 5),
+            spreadRadius: 0,
+            blurRadius: 5,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
