@@ -3,8 +3,8 @@ import 'package:flutter_application_1/homepage.dart';
 import 'package:flutter_application_1/stat.dart';
 
 class BottomNavigation extends StatelessWidget {
-  const BottomNavigation({super.key});
-
+  const BottomNavigation({super.key, required this.page});
+  final String page;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,13 +21,15 @@ class BottomNavigation extends StatelessWidget {
               color: Color(0xFF041a0e),
             ),
             onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HomePage(),
-                ),
-                ModalRoute.withName("/"),
-              );
+              if (page != "Home") {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomePage(),
+                  ),
+                  ModalRoute.withName("/"),
+                );
+              }
             },
           ),
           IconButton(
@@ -36,13 +38,15 @@ class BottomNavigation extends StatelessWidget {
               color: Color(0xFF979797),
             ),
             onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Stat(),
-                ),
-                ModalRoute.withName("/Stat"),
-              );
+              if (page != "Stat") {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Stat(),
+                  ),
+                  ModalRoute.withName("/Stat"),
+                );
+              }
             },
           ),
           IconButton(

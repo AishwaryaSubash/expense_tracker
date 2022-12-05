@@ -10,7 +10,9 @@ class Stat extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Stat"),
       ),
-      bottomNavigationBar: const BottomNavigation(),
+      bottomNavigationBar: const BottomNavigation(
+        page: "Stat",
+      ),
     );
   }
 }
