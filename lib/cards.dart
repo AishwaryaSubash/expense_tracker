@@ -6,6 +6,7 @@ class Cards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       padding: const EdgeInsets.only(
         left: 20,
@@ -84,8 +85,8 @@ class Cards extends StatelessWidget {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     "Credit",
                     style: TextStyle(
                       color: Colors.grey,
@@ -96,7 +97,7 @@ class Cards extends StatelessWidget {
                     "5331 9034 8734 2536",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 15,
+                      fontSize: size.width > 330 ? 15 : 10,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

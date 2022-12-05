@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/bottomnavigation.dart';
 import 'package:flutter_application_1/cards.dart';
 import 'package:flutter_application_1/listcard.dart';
 import 'package:gap/gap.dart';
@@ -9,7 +10,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFf6f6f6),
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(
@@ -23,7 +23,6 @@ class HomePage extends StatelessWidget {
               Text(
                 "Sunday,",
                 style: TextStyle(
-                  color: Color(0xFF979797),
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
                 ),
@@ -62,6 +61,7 @@ class HomePage extends StatelessWidget {
         ],
         backgroundColor: const Color(0xFFf6f6f6),
       ),
+      bottomNavigationBar: const BottomNavigation(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(30, 18, 30, 0),
@@ -91,7 +91,7 @@ class HomePage extends StatelessWidget {
               ListCard(
                 image: "github",
                 name: "GitHub",
-                price: "-₹10.00",
+                price: "-₹80.00",
                 time: "11:30 AM",
                 color: 0xfff4f4f4,
                 type: "Credit",
@@ -109,7 +109,7 @@ class HomePage extends StatelessWidget {
               ListCard(
                 image: "youtube",
                 name: "Youtube",
-                price: "-₹60.00",
+                price: "-₹100.00",
                 time: "16:30 PM",
                 color: 0xfffdecec,
                 type: "Credit",
@@ -118,7 +118,7 @@ class HomePage extends StatelessWidget {
               ListCard(
                 image: "github",
                 name: "GitHub",
-                price: "-₹10.00",
+                price: "-₹20.00",
                 time: "11:30 AM",
                 color: 0xfff4f4f4,
                 type: "Credit",
@@ -133,6 +133,32 @@ class HomePage extends StatelessWidget {
                 type: "Cash",
               ),
               Gap(10),
+              ListCard(
+                image: "youtube",
+                name: "Youtube",
+                price: "-₹1000.00",
+                time: "12:30 PM",
+                color: 0xfffdecec,
+                type: "Cash",
+              ),
+              Gap(10),
+              ListCard(
+                image: "github",
+                name: "GitHub",
+                price: "-₹200.00",
+                time: "3:30 AM",
+                color: 0xfff4f4f4,
+                type: "Credit",
+              ),
+              Gap(10),
+              ListCard(
+                image: "hackerrank",
+                name: "Hackerrank",
+                price: "-₹510.00",
+                time: "6:30 PM",
+                color: 0xffebf9ff,
+                type: "Credit",
+              ),
             ],
           ),
         ),
