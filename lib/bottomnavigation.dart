@@ -10,15 +10,16 @@ class BottomNavigation extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 35,
-        vertical: 18,
+        vertical: 0,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.home_rounded,
-              color: Color(0xFF041a0e),
+              size: (page == "Home") ? 30 : 25,
+              color: (page == "Home") ? const Color(0xFF041a0e) : const Color(0xFF979797),
             ),
             onPressed: () {
               if (page != "Home") {
@@ -33,9 +34,10 @@ class BottomNavigation extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.pie_chart_rounded,
-              color: Color(0xFF979797),
+              color: (page == "Stat") ? const Color(0xFF041a0e) : const Color(0xFF979797),
+              size: (page == "Stat") ? 30 : 25,
             ),
             onPressed: () {
               if (page != "Stat") {

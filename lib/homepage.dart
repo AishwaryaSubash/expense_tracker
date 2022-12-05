@@ -161,6 +161,7 @@ class HomePage extends StatelessWidget {
                 color: 0xffebf9ff,
                 type: "Credit",
               ),
+              Gap(5),
             ],
           ),
         ),
