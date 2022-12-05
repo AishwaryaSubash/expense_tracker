@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:math';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -8,22 +5,12 @@ import 'package:gap/gap.dart';
 class BarChartSample1 extends StatefulWidget {
   const BarChartSample1({super.key});
 
-  List<Color> get availableColors => const <Color>[
-        Colors.purpleAccent,
-        Colors.yellow,
-        Colors.lightBlue,
-        Colors.orange,
-        Colors.pink,
-        Colors.redAccent,
-      ];
-
   @override
   State<StatefulWidget> createState() => BarChartSample1State();
 }
 
 class BarChartSample1State extends State<BarChartSample1> {
   final Color barBackgroundColor = const Color(0xff72d8bf);
-  final Duration animDuration = const Duration(milliseconds: 250);
 
   int touchedIndex = -1;
 
@@ -31,34 +18,41 @@ class BarChartSample1State extends State<BarChartSample1> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        color: const Color(0xff81e5cd),
-        child: Stack(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  const Gap(38),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: BarChart(
-                        mainBarData(),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                ],
-              ),
+    return Center(
+      child: SizedBox(
+        height: 300,
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18),
             ),
-          ],
+            color: const Color(0xff81e5cd),
+            child: Stack(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      const Gap(38),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                          ),
+                          child: BarChart(
+                            mainBarData(),
+                          ),
+                        ),
+                      ),
+                      const Gap(12),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -95,26 +89,29 @@ class BarChartSample1State extends State<BarChartSample1> {
     );
   }
 
-  List<BarChartGroupData> showingGroups() => List.generate(7, (i) {
-        switch (i) {
-          case 0:
-            return makeGroupData(0, 5, isTouched: i == touchedIndex);
-          case 1:
-            return makeGroupData(1, 6.5, isTouched: i == touchedIndex);
-          case 2:
-            return makeGroupData(2, 5, isTouched: i == touchedIndex);
-          case 3:
-            return makeGroupData(3, 7.5, isTouched: i == touchedIndex);
-          case 4:
-            return makeGroupData(4, 9, isTouched: i == touchedIndex);
-          case 5:
-            return makeGroupData(5, 11.5, isTouched: i == touchedIndex);
-          case 6:
-            return makeGroupData(6, 6.5, isTouched: i == touchedIndex);
-          default:
-            return throw Error();
-        }
-      });
+  List<BarChartGroupData> showingGroups() => List.generate(
+        7,
+        (i) {
+          switch (i) {
+            case 0:
+              return makeGroupData(0, 5, isTouched: i == touchedIndex);
+            case 1:
+              return makeGroupData(1, 6.5, isTouched: i == touchedIndex);
+            case 2:
+              return makeGroupData(2, 5, isTouched: i == touchedIndex);
+            case 3:
+              return makeGroupData(3, 7.5, isTouched: i == touchedIndex);
+            case 4:
+              return makeGroupData(4, 9, isTouched: i == touchedIndex);
+            case 5:
+              return makeGroupData(5, 11.5, isTouched: i == touchedIndex);
+            case 6:
+              return makeGroupData(6, 6.5, isTouched: i == touchedIndex);
+            default:
+              return throw Error();
+          }
+        },
+      );
 
   BarChartData mainBarData() {
     return BarChartData(
