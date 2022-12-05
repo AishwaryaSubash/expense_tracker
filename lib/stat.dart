@@ -12,19 +12,13 @@ class Stat extends StatelessWidget {
         iconTheme: const IconThemeData(
           color: Color(0xff1d2a31),
         ),
-        title: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              "Statistics",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 18,
-              ),
-            ),
-          ],
+        centerTitle: true,
+        title: const Text(
+          "Statistics",
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 18,
+          ),
         ),
       ),
       bottomNavigationBar: const BottomNavigation(
@@ -65,7 +59,6 @@ class Stat extends StatelessWidget {
                   ),
                 ],
               ),
-              
             ],
           ),
         ),
