@@ -45,11 +45,13 @@ class BottomNavigation extends StatelessWidget {
             ),
             onPressed: () {
               if (page != "Stat") {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Stat(),
-                    ));
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Stat(),
+                  ),
+                  ModalRoute.withName("/Stat"),
+                );
               }
             },
           ),
