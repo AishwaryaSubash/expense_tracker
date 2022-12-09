@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/addexpense.dart';
 import 'package:flutter_application_1/homepage.dart';
+import 'package:flutter_application_1/profile.dart';
 import 'package:flutter_application_1/stat.dart';
 
 class BottomNavigation extends StatelessWidget {
@@ -78,7 +79,17 @@ class BottomNavigation extends StatelessWidget {
               Icons.settings,
               color: Color(0xFF979797),
             ),
-            onPressed: () {},
+            onPressed: () {
+              if (page != "Profile") {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Profile(),
+                  ),
+                  ModalRoute.withName("/Profile"),
+                );
+              }
+            },
           ),
         ],
       ),
