@@ -8,15 +8,15 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
         iconTheme: const IconThemeData(
           color: Color(0xff1d2a31),
         ),
         title: const Text("Profile"),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color(0xff1d2a31),
         automaticallyImplyLeading: false,
       ),
       bottomNavigationBar: const BottomNavigation(
@@ -26,22 +26,22 @@ class Profile extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 400,
+              height: size.height * 0.35,
               child: Stack(
-                children: const [
-                  Background(),
+                children: [
+                  const Background(),
                   Positioned.fill(
-                    bottom: -260,
+                    bottom: -size.height * 0.22,
                     child: Align(
                       alignment: Alignment.center,
                       child: CircleAvatar(
-                        backgroundImage: AssetImage(
+                        backgroundImage: const AssetImage(
                           "assets/images/karthi.png",
                         ),
-                        radius: 50,
+                        radius: size.height * 0.06,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -54,7 +54,7 @@ class Profile extends StatelessWidget {
             ),
             const Gap(6),
             const Text(
-              "@karthikeyan",
+              "@KayEe",
               style: TextStyle(
                 fontSize: 14,
               ),
