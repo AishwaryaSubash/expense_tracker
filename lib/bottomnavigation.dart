@@ -58,9 +58,12 @@ class BottomNavigation extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.wallet_rounded,
-              color: Color(0xFF979797),
+              color: (page == "Add")
+                  ? const Color(0xFF041a0e)
+                  : const Color(0xFF979797),
+              size: (page == "Add") ? 30 : 25,
             ),
             onPressed: () {
               if (page != "Add") {
@@ -75,9 +78,12 @@ class BottomNavigation extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.settings,
-              color: Color(0xFF979797),
+              color: (page == "Profile")
+                  ? const Color(0xFF041a0e)
+                  : const Color(0xFF979797),
+              size: (page == "Profile") ? 30 : 25,
             ),
             onPressed: () {
               if (page != "Profile") {
