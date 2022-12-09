@@ -38,11 +38,11 @@ class _ChartState extends State<Chart> {
     List<ChartData> chartData = <ChartData>[
       ChartData(x: 'Mon', y: 100),
       ChartData(x: 'Tue', y: 50),
-      ChartData(x: 'Wed', y: 40),
+      ChartData(x: 'Wed', y: 30),
       ChartData(x: 'Thu', y: 70),
       ChartData(x: 'Fri', y: 20),
       ChartData(x: 'Sat', y: 60),
-      ChartData(x: 'Sun', y: 75),
+      ChartData(x: 'Sun', y: 85),
     ];
     return Container(
       decoration: BoxDecoration(
