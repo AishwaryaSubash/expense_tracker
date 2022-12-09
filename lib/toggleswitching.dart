@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 
 class Toggler extends StatefulWidget {
   const Toggler({super.key});
@@ -8,80 +9,34 @@ class Toggler extends StatefulWidget {
 }
 
 class _TogglerState extends State<Toggler> {
-  int isEnabled = 1;
-  final animationDuration = const Duration(milliseconds: 500);
-  late AnimationController controller;
-  late Animation colorAnimation;
-  late Animation sizeAnimation;
-  @override
-  // void initState() {
-  //   controller=AnimationController(duration: const Duration(seconds: 2),vsync: );
-  //   colorAnimation =
-  //       ColorTween(begin: Colors.blue, end: Colors.yellow).animate(controller);
-  //   sizeAnimation = Tween<double>(begin: 100.0, end: 200.0).animate(controller);
-  //   super.initState();
-  // }
-
+  int value = 0;
+  bool positive = false;
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(seconds: 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                isEnabled = 1;
-              });
-            },
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-              decoration: BoxDecoration(
-                color: (isEnabled == 1)
-                    ? const Color(0xff1d2a31)
-                    : const Color(0xffffffff),
-                borderRadius: const BorderRadius.horizontal(
-                  left: Radius.circular(50),
-                ),
-              ),
-              child: Text(
-                "Weekly",
-                style: TextStyle(
-                  color: (isEnabled == 1)
-                      ? const Color(0xffffffff)
-                      : const Color(0xFF979797),
-                ),
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                isEnabled = 2;
-              });
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.horizontal(
-                  right: Radius.circular(50),
-                ),
-                color: (isEnabled == 2)
-                    ? const Color(0xff1d2a31)
-                    : const Color(0xffffffff),
-              ),
-              padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-              child: Text(
-                "Monthly",
-                style: TextStyle(
-                  color: (isEnabled == 2)
-                      ? const Color(0xffffffff)
-                      : const Color(0xFF979797),
-                ),
-              ),
-            ),
-          ),
-        ],
+    return Center(
+      child: AnimatedToggleSwitch<int>.size(
+        current: value,
+        values: const [0, 1],
+        iconOpacity: 0.6,
+        innerColor: Colors.white,
+        indicatorSize: const Size.fromWidth(200),
+        borderColor: Colors.white,
+        borderWidth: 3,
+        colorBuilder: (i) => const Color(0xff1d2a31),
+        onChanged: (i) => setState(() => value = i),
+        iconBuilder: (value, size) {
+          if (value == 1) {
+            return const Icon(
+              Icons.ac_unit_outlined,
+              color: Colors.amber,
+            );
+          } else {
+            return const Icon(
+              Icons.access_alarms_rounded,
+              color: Colors.cyan,
+            );
+          }
+        },
       ),
     );
   }

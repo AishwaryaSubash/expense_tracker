@@ -39,6 +39,7 @@ dependencies:
   gap: ^2.0.1
   syncfusion_flutter_charts: ^20.3.59
   fl_chart: ^0.55.2
+  animated_toggle_switch: ^0.5.2
   
 dev_dependencies:
   flutter_test:
