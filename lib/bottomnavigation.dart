@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/addexpense.dart';
 import 'package:flutter_application_1/homepage.dart';
 import 'package:flutter_application_1/stat.dart';
 
@@ -60,7 +61,17 @@ class BottomNavigation extends StatelessWidget {
               Icons.wallet_rounded,
               color: Color(0xFF979797),
             ),
-            onPressed: () {},
+            onPressed: () {
+              if (page != "Add") {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AddExpense(),
+                  ),
+                  ModalRoute.withName("/Add"),
+                );
+              }
+            },
           ),
           IconButton(
             icon: const Icon(
