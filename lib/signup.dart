@@ -14,6 +14,7 @@ class SignUp extends StatelessWidget {
       ),
       child: Container(
         width: size.width,
+        height: size.height * 0.5,
         decoration: const BoxDecoration(
           color: Color(0xff1d2a31),
           borderRadius: BorderRadius.only(
