@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/homepage.dart';
+
+import 'package:flutter_application_1/modal.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +16,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
+        bottomSheetTheme: const BottomSheetThemeData(
+          backgroundColor: Colors.transparent,
+        ),
         fontFamily: "Nunito",
         scaffoldBackgroundColor: const Color(0xFFf6f6f6),
         appBarTheme: const AppBarTheme(
@@ -25,7 +29,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const HomePage(),
+      // home: const HomePage(),
+      home: const Modal(),
     );
   }
 }

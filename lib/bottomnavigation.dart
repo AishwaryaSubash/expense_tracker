@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/addexpense.dart';
+import 'package:flutter_application_1/dummy.dart';
 import 'package:flutter_application_1/homepage.dart';
 import 'package:flutter_application_1/profile.dart';
 import 'package:flutter_application_1/stat.dart';
@@ -91,6 +92,7 @@ class BottomNavigation extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const Profile(),
+                    // builder: (context) => const Dummy(),
                   ),
                   ModalRoute.withName("/Profile"),
                 );

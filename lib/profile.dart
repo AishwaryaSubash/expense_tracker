@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/background.dart';
 import 'package:flutter_application_1/bottomnavigation.dart';
+
+import 'package:flutter_application_1/modal.dart';
 import 'package:flutter_application_1/profilelisting.dart';
 import 'package:gap/gap.dart';
 
@@ -35,9 +37,20 @@ class Profile extends StatelessWidget {
                   Radius.circular(10),
                 ),
               ),
-              child: const Icon(
-                Icons.notifications_none_outlined,
-                color: Colors.white54,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Modal(),
+                    ),
+                    ModalRoute.withName("/Login"),
+                  );
+                },
+                child: const Icon(
+                  Icons.notifications_none_outlined,
+                  color: Colors.white54,
+                ),
               ),
             ),
           ),
