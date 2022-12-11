@@ -1,15 +1,14 @@
 import 'package:flutter_application_1/homepage.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter/material.dart';
-
 import 'dart:async';
 import 'dart:convert';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 
 Future<dynamic> createAlbum(String username, String password) async {
   final response = await http.post(
-    Uri.parse('http://localhost:3000/user/signinUser'),
+    Uri.parse('https://expense-backend.vercel.app/user/signinUser'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -37,9 +36,11 @@ class _LoginState extends State<Login> {
   final TextEditingController _controller1 = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
   Future<dynamic>? _futureAlbum;
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -126,16 +127,9 @@ class _LoginState extends State<Login> {
               ),
               GestureDetector(
                 onTap: () async {
-                  // Navigator.pushAndRemoveUntil(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const HomePage(),
-                  //   ),
-                  //   ModalRoute.withName("/"),
-                  // );
-
                   setState(
                     () {
+                      isLoading = true;
                       _futureAlbum =
                           createAlbum(_controller1.text, _controller2.text);
                     },
@@ -143,8 +137,9 @@ class _LoginState extends State<Login> {
 
                   // buildFutureBuilder();
                   var result = await _futureAlbum;
-                  print(result);
-                  print(result["verified"]);
+                  // print(result);
+
+                  // print(result["verified"]);
                   if (result["verified"] == true) {
                     // ignore: use_build_context_synchronously
                     Navigator.pushAndRemoveUntil(
@@ -154,16 +149,25 @@ class _LoginState extends State<Login> {
                         ),
                         (Route route) => false);
                   } else {
+                    // print(result);
                     showDialog<String>(
+                      barrierDismissible: false,
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
                         title: const Text('Error'),
                         content: Text(
-                          result["message"],
+                          result["message"][0],
                         ),
                         actions: <Widget>[
                           TextButton(
-                            onPressed: () => Navigator.pop(context, 'OK'),
+                            onPressed: () {
+                              setState(
+                                () {
+                                  isLoading = false;
+                                },
+                              );
+                              Navigator.pop(context, 'OK');
+                            },
                             child: const Text('OK'),
                           ),
                         ],
@@ -181,32 +185,21 @@ class _LoginState extends State<Login> {
                       Radius.circular(10),
                     ),
                   ),
-                  child: const Text(
-                    "Login",
-                    textAlign: TextAlign.center,
-                  ),
+                  child: isLoading
+                      ? const SpinKitFadingCircle(
+                          size: 30,
+                          color: Color(0xff1d2a31),
+                        )
+                      : const Text(
+                          "Login",
+                          textAlign: TextAlign.center,
+                        ),
                 ),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  FutureBuilder<dynamic> buildFutureBuilder() {
-    return FutureBuilder<dynamic>(
-      future: _futureAlbum,
-      builder: (context, snapshot) {
-        // if (snapshot.hasData) {
-        //   return Text(snapshot.data!.title);
-        // } else if (snapshot.hasError) {
-        //   return Text('${snapshot.error}');
-        // }
-        print(snapshot.data!);
-        return Text(snapshot.data!.verified);
-        // return const CircularProgressIndicator();
-      },
     );
   }
 }
