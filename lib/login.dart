@@ -2,9 +2,41 @@ import 'package:flutter_application_1/homepage.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
+Future<dynamic> createAlbum(String username, String password) async {
+  final response = await http.post(
+    Uri.parse('http://localhost:3000/user/signinUser'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(
+        <String, String>{'username': username, 'password': password}),
+  );
+
+  var result = jsonDecode(response.body);
+  if (response.statusCode == 201) {
+    return result;
+  } else {
+    result["statusCode"] = response.statusCode;
+    return result;
+  }
+}
+
+class Login extends StatefulWidget {
   const Login({super.key});
 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final TextEditingController _controller1 = TextEditingController();
+  final TextEditingController _controller2 = TextEditingController();
+  Future<dynamic>? _futureAlbum;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -48,6 +80,7 @@ class Login extends StatelessWidget {
                     const Gap(20),
                     Expanded(
                       child: TextField(
+                        controller: _controller1,
                         // style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           filled: true,
@@ -76,6 +109,7 @@ class Login extends StatelessWidget {
                     const Gap(20),
                     Expanded(
                       child: TextField(
+                        controller: _controller2,
                         // style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           filled: true,
@@ -91,14 +125,53 @@ class Login extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomePage(),
-                    ),
-                    ModalRoute.withName("/"),
+                onTap: () async {
+                  // Navigator.pushAndRemoveUntil(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const HomePage(),
+                  //   ),
+                  //   ModalRoute.withName("/"),
+                  // );
+
+                  setState(
+                    () {
+                      _futureAlbum =
+                          createAlbum(_controller1.text, _controller2.text);
+                    },
                   );
+
+                  // buildFutureBuilder();
+                  var result = await _futureAlbum;
+                  print(result);
+                  print(result["verified"]);
+                  if (result["verified"] == true) {
+                    // ignore: use_build_context_synchronously
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomePage(),
+                        ),
+                        (Route route) => false);
+                  } else {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('AlertDialog Title'),
+                        content: const Text('AlertDialog description'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Cancel'),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
                 },
                 child: Container(
                   padding: const EdgeInsets.only(
@@ -120,6 +193,22 @@ class Login extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  FutureBuilder<dynamic> buildFutureBuilder() {
+    return FutureBuilder<dynamic>(
+      future: _futureAlbum,
+      builder: (context, snapshot) {
+        // if (snapshot.hasData) {
+        //   return Text(snapshot.data!.title);
+        // } else if (snapshot.hasError) {
+        //   return Text('${snapshot.error}');
+        // }
+        print(snapshot.data!);
+        return Text(snapshot.data!.verified);
+        // return const CircularProgressIndicator();
+      },
     );
   }
 }
