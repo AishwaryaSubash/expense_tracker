@@ -24,7 +24,7 @@ class _InputFieldsState extends State<InputFields> {
     return Container(
       child: Column(
         children: [
-          Gap(size.height * 0.07),
+          Gap(30),
           Container(
             width: size.width * 0.6,
             child: Column(
@@ -45,7 +45,7 @@ class _InputFieldsState extends State<InputFields> {
               ],
             ),
           ),
-          Gap(size.height * 0.05),
+          Gap(15),
           Container(
             width: size.width * 0.6,
             child: Column(
@@ -66,7 +66,7 @@ class _InputFieldsState extends State<InputFields> {
               ],
             ),
           ),
-          Gap(size.height * 0.05),
+          Gap(15),
           TextButton.icon(
             // autofocus: true,
             style: TextButton.styleFrom(
