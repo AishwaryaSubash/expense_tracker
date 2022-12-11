@@ -48,7 +48,7 @@ class Profile extends StatelessWidget {
                   );
                 },
                 child: const Icon(
-                  Icons.notifications_none_outlined,
+                  Icons.logout_rounded,
                   color: Colors.white54,
                 ),
               ),
