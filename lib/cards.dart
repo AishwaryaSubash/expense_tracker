@@ -1,9 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Cards extends StatelessWidget {
+class Cards extends StatefulWidget {
   const Cards({super.key});
+
+  @override
+  State<Cards> createState() => _CardsState();
+}
+
+class _CardsState extends State<Cards> {
+  String uuid = "default";
+  @override
+  void initState() {
+    super.initState();
+
+    getStringValuesSF();
+  }
+
+  getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? stringValue = prefs.getString('userId');
+    if (stringValue != null) {
+      setState(() {
+        uuid = stringValue;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,12 +130,13 @@ class Cards extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SvgPicture.network(
-                  'https://avatars.dicebear.com/api/bottts/Akash.svg',
-                  width: 90,
-                  height: 90,
-                  colorBlendMode: BlendMode.softLight,
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: SvgPicture.network(
+                    "https://avatars.dicebear.com/api/bottts/$uuid.svg?scale=100",
+                  ),
                 ),
               ),
             ],
