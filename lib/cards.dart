@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -134,8 +133,8 @@ class _CardsState extends State<Cards> {
                 child: SizedBox(
                   width: 100,
                   height: 100,
-                  child: SvgPicture.network(
-                    "https://avatars.dicebear.com/api/bottts/$uuid.svg?scale=100",
+                  child: Image.network(
+                    "https://avatars.dicebear.com/api/bottts/$uuid.png?scale=100",
                   ),
                 ),
               ),

@@ -13,8 +13,31 @@ removeValues() async {
   prefs.remove("userId");
 }
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({super.key});
+
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  String uuid = "default";
+  @override
+  void initState() {
+    super.initState();
+
+    getStringValuesSF();
+  }
+
+  getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? stringValue = prefs.getString('userId');
+    if (stringValue != null) {
+      setState(() {
+        uuid = stringValue;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +103,11 @@ class Profile extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.center,
                       child: CircleAvatar(
-                        backgroundImage: const AssetImage(
-                          "assets/images/karthi.png",
+                        backgroundImage: NetworkImage(
+                          "https://avatars.dicebear.com/api/bottts/$uuid.png?scale=100",
                         ),
                         radius: size.height * 0.06,
+                        backgroundColor: Colors.transparent,
                       ),
                     ),
                   ),
