@@ -12,8 +12,8 @@ class Background extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Color(0xff1d2a31),
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.elliptical(160, 50),
-          bottomRight: Radius.elliptical(160, 50),
+          bottomLeft: Radius.elliptical(280, 100),
+          bottomRight: Radius.elliptical(280, 100),
         ),
       ),
     );

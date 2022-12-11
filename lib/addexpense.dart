@@ -23,8 +23,8 @@ class AddExpense extends StatelessWidget {
         page: "Add",
       ),
       body: SingleChildScrollView(
-        child: Container(
-          height: size.height,
+        child: SizedBox(
+          height: size.height * 0.7,
           child: Stack(
             children: [
               const Background(),
@@ -37,6 +37,7 @@ class AddExpense extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     width: size.width * 0.8,
+                    height: size.height * 0.5,
                     child: const InputFields(),
                   ),
                 ),

@@ -24,7 +24,7 @@ class _InputFieldsState extends State<InputFields> {
     return Container(
       child: Column(
         children: [
-          Gap(size.height * 0.1),
+          Gap(size.height * 0.07),
           Container(
             width: size.width * 0.6,
             child: Column(
@@ -45,6 +45,7 @@ class _InputFieldsState extends State<InputFields> {
               ],
             ),
           ),
+          Gap(size.height * 0.05),
           Container(
             width: size.width * 0.6,
             child: Column(
@@ -65,34 +66,11 @@ class _InputFieldsState extends State<InputFields> {
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(15),
-            child: Center(
-              child: TextField(
-                controller: dateInput,
-                decoration: const InputDecoration(
-                    icon: Icon(Icons.calendar_today), labelText: "Enter Date"),
-                readOnly: true,
-                onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(1950),
-                    lastDate: DateTime(2100),
-                  );
-                  if (pickedDate != null) {
-                    String formattedDate =
-                        DateFormat('dd-MM-yyyy').format(pickedDate);
-                    setState(() {
-                      dateInput.text = formattedDate;
-                    });
-                  } else {}
-                },
-              ),
-            ),
-          ),
+          Gap(size.height * 0.05),
           TextButton.icon(
+            // autofocus: true,
             style: TextButton.styleFrom(
+              padding: const EdgeInsets.all(20),
               backgroundColor: const Color(0xff1d2a30),
               foregroundColor: Colors.grey,
             ),
