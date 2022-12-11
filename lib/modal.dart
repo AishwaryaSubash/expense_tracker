@@ -33,7 +33,11 @@ class Modal extends StatelessWidget {
                       context: context,
                       isScrollControlled: true,
                       builder: (BuildContext context) {
-                        return const Login();
+                        return Wrap(
+                          children: const [
+                            Login(),
+                          ],
+                        );
                       },
                     );
                   },
@@ -63,7 +67,11 @@ class Modal extends StatelessWidget {
                       context: context,
                       isScrollControlled: true,
                       builder: (BuildContext context) {
-                        return const SignUp();
+                        return Wrap(
+                          children: const [
+                            SignUp(),
+                          ],
+                        );
                       },
                     );
                   },

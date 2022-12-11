@@ -13,8 +13,8 @@ class SignUp extends StatelessWidget {
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       child: Container(
-        width: size.width,
-        height: size.height * 0.5,
+        // width: size.width,
+        // height: size.height * 0.5,
         decoration: const BoxDecoration(
           color: Color(0xff1d2a31),
           borderRadius: BorderRadius.only(
