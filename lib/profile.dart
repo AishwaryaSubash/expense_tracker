@@ -102,13 +102,15 @@ class _ProfileState extends State<Profile> {
                     bottom: -size.height * 0.22,
                     child: Align(
                       alignment: Alignment.center,
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          "https://avatars.dicebear.com/api/bottts/$uuid.png?scale=100",
-                        ),
-                        radius: size.height * 0.06,
-                        backgroundColor: Colors.transparent,
-                      ),
+                      child: (uuid != "default")
+                          ? CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                "https://avatars.dicebear.com/api/bottts/$uuid.png?scale=100",
+                              ),
+                              radius: size.height * 0.06,
+                              backgroundColor: Colors.transparent,
+                            )
+                          : null,
                     ),
                   ),
                 ],
