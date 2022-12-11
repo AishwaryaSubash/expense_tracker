@@ -2,10 +2,56 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bottomnavigation.dart';
 import 'package:flutter_application_1/cards.dart';
 import 'package:flutter_application_1/listcard.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'package:intl/intl.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+getStringValuesSF() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  //Return String
+  String? stringValue = prefs.getString('userId');
+  return stringValue;
+}
+
+class _HomePageState extends State<HomePage> {
+  dynamic data = null;
+  String uuid = "";
+  Future<dynamic> fetchAlbum() async {
+    dynamic res = await getStringValuesSF();
+    final response = await http.get(
+      Uri.parse("https://expense-backend.vercel.app/user/$res"),
+    );
+    if (response.statusCode == 200) {
+      setState(() {
+        data = jsonDecode(response.body);
+        uuid = res;
+      });
+
+      //print(data["username"]);
+    } else {
+      throw Exception('Failed to load statistics');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initializeDateFormatting("in");
+
+    fetchAlbum();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,108 +110,60 @@ class HomePage extends StatelessWidget {
       bottomNavigationBar: const BottomNavigation(
         page: "Home",
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(30, 18, 30, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Cards(),
-              Gap(25),
-              Text(
-                "Today's Transactions",
-                style: TextStyle(
-                  color: Color(0xFF041a0e),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+      body: (data != null)
+          ? SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(30, 18, 30, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Cards(
+                      uuid: uuid,
+                      username: data["username"],
+                      income: data["income"],
+                    ),
+                    const Gap(30),
+                    const Text(
+                      "Today's Transactions",
+                      style: TextStyle(
+                        color: Color(0xFF041a0e),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const Gap(25),
+                    ...data["expense"]
+                        .map(
+                          (i) => ListCard(
+                            image: i["description"],
+                            name: i["description"],
+                            price: "-₹${i["amount"]}",
+                            time: DateFormat.jm().format(
+                              DateTime.parse(
+                                i["date"],
+                              ),
+                            ),
+                            color: 0xffebf9ff,
+                            date: DateFormat.E().format(
+                              DateTime.parse(
+                                i["date"],
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    const Gap(5),
+                  ],
                 ),
               ),
-              Gap(25),
-              ListCard(
-                image: "youtube",
-                name: "Youtube",
-                price: "-₹60.00",
-                time: "16:30 PM",
-                color: 0xfffdecec,
-                type: "Credit",
+            )
+          : const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: SpinKitCircle(
+                size: 100,
+                color: Color(0xff1d2a31),
               ),
-              Gap(10),
-              ListCard(
-                image: "github",
-                name: "GitHub",
-                price: "-₹80.00",
-                time: "11:30 AM",
-                color: 0xfff4f4f4,
-                type: "Credit",
-              ),
-              Gap(10),
-              ListCard(
-                image: "hackerrank",
-                name: "Hackerrank",
-                price: "-₹50.00",
-                time: "16:30 PM",
-                color: 0xffebf9ff,
-                type: "Cash",
-              ),
-              Gap(10),
-              ListCard(
-                image: "youtube",
-                name: "Youtube",
-                price: "-₹100.00",
-                time: "16:30 PM",
-                color: 0xfffdecec,
-                type: "Credit",
-              ),
-              Gap(10),
-              ListCard(
-                image: "github",
-                name: "GitHub",
-                price: "-₹20.00",
-                time: "11:30 AM",
-                color: 0xfff4f4f4,
-                type: "Credit",
-              ),
-              Gap(10),
-              ListCard(
-                image: "hackerrank",
-                name: "Hackerrank",
-                price: "-₹50.00",
-                time: "16:30 PM",
-                color: 0xffebf9ff,
-                type: "Cash",
-              ),
-              Gap(10),
-              ListCard(
-                image: "youtube",
-                name: "Youtube",
-                price: "-₹1000.00",
-                time: "12:30 PM",
-                color: 0xfffdecec,
-                type: "Cash",
-              ),
-              Gap(10),
-              ListCard(
-                image: "github",
-                name: "GitHub",
-                price: "-₹200.00",
-                time: "3:30 AM",
-                color: 0xfff4f4f4,
-                type: "Credit",
-              ),
-              Gap(10),
-              ListCard(
-                image: "hackerrank",
-                name: "Hackerrank",
-                price: "-₹510.00",
-                time: "6:30 PM",
-                color: 0xffebf9ff,
-                type: "Credit",
-              ),
-              Gap(5),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

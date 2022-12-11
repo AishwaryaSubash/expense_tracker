@@ -1,33 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Cards extends StatefulWidget {
-  const Cards({super.key});
-
+  const Cards({
+    super.key,
+    required this.username,
+    required this.uuid,
+    required this.income,
+  });
+  final String username;
+  final String uuid;
+  final int income;
   @override
   State<Cards> createState() => _CardsState();
 }
 
 class _CardsState extends State<Cards> {
-  String uuid = "default";
   @override
-  void initState() {
-    super.initState();
-
-    getStringValuesSF();
-  }
-
-  getStringValuesSF() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? stringValue = prefs.getString('userId');
-    if (stringValue != null) {
-      setState(() {
-        uuid = stringValue;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -95,9 +84,9 @@ class _CardsState extends State<Cards> {
             ],
           ),
           const Gap(10),
-          const Text(
-            "₹ 100,000,000",
-            style: TextStyle(
+          Text(
+            "₹ ${widget.income}",
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 25,
               fontWeight: FontWeight.w600,
@@ -133,9 +122,9 @@ class _CardsState extends State<Cards> {
                 child: SizedBox(
                   width: 100,
                   height: 100,
-                  child: (uuid != "default")
+                  child: (widget.uuid != "default")
                       ? Image.network(
-                          "https://avatars.dicebear.com/api/bottts/$uuid.png?scale=100",
+                          "https://avatars.dicebear.com/api/bottts/${widget.uuid}.png?scale=100",
                         )
                       : null,
                 ),

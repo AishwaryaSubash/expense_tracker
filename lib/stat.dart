@@ -1,12 +1,114 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bottomnavigation.dart';
 import 'package:flutter_application_1/chart.dart';
 import 'package:flutter_application_1/listcard.dart';
 import 'package:flutter_application_1/toggleswitching.dart';
 import 'package:gap/gap.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Stat extends StatelessWidget {
+getStringValuesSF() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  //Return String
+  String? stringValue = prefs.getString('userId');
+  return stringValue;
+}
+
+class Stat extends StatefulWidget {
   const Stat({super.key});
+
+  @override
+  State<Stat> createState() => _StatState();
+}
+
+class _StatState extends State<Stat> {
+  dynamic stat = null;
+  double avg = 0;
+  List<ChartData> chartData = <ChartData>[
+    ChartData(
+      x: 'Mon',
+      y: 0,
+    ),
+    ChartData(
+      x: 'Tue',
+      y: 0,
+    ),
+    ChartData(
+      x: 'Wed',
+      y: 0,
+    ),
+    ChartData(
+      x: 'Thu',
+      y: 0,
+    ),
+    ChartData(
+      x: 'Fri',
+      y: 0,
+    ),
+    ChartData(
+      x: 'Sat',
+      y: 0,
+    ),
+    ChartData(
+      x: 'Sun',
+      y: 0,
+    ),
+  ];
+  Future<dynamic> fetchAlbum() async {
+    var res = await getStringValuesSF();
+    final response = await http.get(
+      Uri.parse("https://expense-backend.vercel.app/stats/$res"),
+    );
+    if (response.statusCode == 200) {
+      setState(() {
+        stat = jsonDecode(response.body);
+        chartData = <ChartData>[
+          ChartData(
+            x: 'Mon',
+            y: stat[0]["quota"][1],
+          ),
+          ChartData(
+            x: 'Tue',
+            y: stat[0]["quota"][2],
+          ),
+          ChartData(
+            x: 'Wed',
+            y: stat[0]["quota"][3],
+          ),
+          ChartData(
+            x: 'Thu',
+            y: stat[0]["quota"][4],
+          ),
+          ChartData(
+            x: 'Fri',
+            y: stat[0]["quota"][5],
+          ),
+          ChartData(
+            x: 'Sat',
+            y: stat[0]["quota"][6],
+          ),
+          ChartData(
+            x: 'Sun',
+            y: stat[0]["quota"][0],
+          ),
+        ];
+        avg = double.parse(((stat[0]["quota"].reduce((a, b) => a + b)) /
+                stat[0]["quota"].length)
+            .toStringAsFixed(2));
+      });
+    } else {
+      throw Exception('Failed to load statistics');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    fetchAlbum();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,20 +143,20 @@ class Stat extends StatelessWidget {
                 ),
               ),
               Row(
-                children: const [
+                children: [
                   Text(
-                    "₹500,000,000",
-                    style: TextStyle(
+                    "₹$avg",
+                    style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Gap(20),
-                  Icon(
+                  const Gap(20),
+                  const Icon(
                     Icons.arrow_drop_down_circle_rounded,
                     size: 15,
                   ),
-                  Text(
+                  const Text(
                     "20%",
                     style: TextStyle(
                       fontSize: 14,
@@ -63,7 +165,7 @@ class Stat extends StatelessWidget {
                 ],
               ),
               const Gap(20),
-              const Chart(),
+              Chart(chartData: chartData, stat: stat),
               const Gap(25),
               const Toggler(),
               const Gap(20),
@@ -76,94 +178,75 @@ class Stat extends StatelessWidget {
               ),
               const Gap(20),
               const ListCard(
-                image: "hackerrank",
-                name: "Hackerrank",
-                price: "-₹50.00",
-                time: "16:30 PM",
-                color: 0xffebf9ff,
-                type: "Cash",
-              ),
-              const Gap(10),
+                  image: "hackerrank",
+                  name: "Hackerrank",
+                  price: "-₹50.00",
+                  time: "16:30 PM",
+                  color: 0xffebf9ff,
+                  date: ""),
               const ListCard(
-                image: "hackerrank",
-                name: "Hackerrank",
-                price: "-₹50.00",
-                time: "16:30 PM",
-                color: 0xffebf9ff,
-                type: "Cash",
-              ),
-              const Gap(10),
+                  image: "hackerrank",
+                  name: "Hackerrank",
+                  price: "-₹50.00",
+                  time: "16:30 PM",
+                  color: 0xffebf9ff,
+                  date: ""),
               const ListCard(
-                image: "hackerrank",
-                name: "Hackerrank",
-                price: "-₹50.00",
-                time: "16:30 PM",
-                color: 0xffebf9ff,
-                type: "Cash",
-              ),
-              const Gap(10),
+                  image: "hackerrank",
+                  name: "Hackerrank",
+                  price: "-₹50.00",
+                  time: "16:30 PM",
+                  color: 0xffebf9ff,
+                  date: ""),
               const ListCard(
-                image: "hackerrank",
-                name: "Hackerrank",
-                price: "-₹50.00",
-                time: "16:30 PM",
-                color: 0xffebf9ff,
-                type: "Cash",
-              ),
-              const Gap(10),
+                  image: "hackerrank",
+                  name: "Hackerrank",
+                  price: "-₹50.00",
+                  time: "16:30 PM",
+                  color: 0xffebf9ff,
+                  date: ""),
               const ListCard(
-                image: "hackerrank",
-                name: "Hackerrank",
-                price: "-₹50.00",
-                time: "16:30 PM",
-                color: 0xffebf9ff,
-                type: "Cash",
-              ),
-              const Gap(10),
+                  image: "hackerrank",
+                  name: "Hackerrank",
+                  price: "-₹50.00",
+                  time: "16:30 PM",
+                  color: 0xffebf9ff,
+                  date: ""),
               const ListCard(
-                image: "hackerrank",
-                name: "Hackerrank",
-                price: "-₹50.00",
-                time: "16:30 PM",
-                color: 0xffebf9ff,
-                type: "Cash",
-              ),
-              const Gap(10),
+                  image: "hackerrank",
+                  name: "Hackerrank",
+                  price: "-₹50.00",
+                  time: "16:30 PM",
+                  color: 0xffebf9ff,
+                  date: ""),
               const ListCard(
-                image: "hackerrank",
-                name: "Hackerrank",
-                price: "-₹50.00",
-                time: "16:30 PM",
-                color: 0xffebf9ff,
-                type: "Cash",
-              ),
-              const Gap(10),
+                  image: "hackerrank",
+                  name: "Hackerrank",
+                  price: "-₹50.00",
+                  time: "16:30 PM",
+                  color: 0xffebf9ff,
+                  date: ""),
               const ListCard(
-                image: "hackerrank",
-                name: "Hackerrank",
-                price: "-₹50.00",
-                time: "16:30 PM",
-                color: 0xffebf9ff,
-                type: "Cash",
-              ),
-              const Gap(10),
+                  image: "hackerrank",
+                  name: "Hackerrank",
+                  price: "-₹50.00",
+                  time: "16:30 PM",
+                  color: 0xffebf9ff,
+                  date: ""),
               const ListCard(
-                image: "hackerrank",
-                name: "Hackerrank",
-                price: "-₹50.00",
-                time: "16:30 PM",
-                color: 0xffebf9ff,
-                type: "Cash",
-              ),
-              const Gap(10),
+                  image: "hackerrank",
+                  name: "Hackerrank",
+                  price: "-₹50.00",
+                  time: "16:30 PM",
+                  color: 0xffebf9ff,
+                  date: ""),
               const ListCard(
-                image: "hackerrank",
-                name: "Hackerrank",
-                price: "-₹50.00",
-                time: "16:30 PM",
-                color: 0xffebf9ff,
-                type: "Cash",
-              ),
+                  image: "hackerrank",
+                  name: "Hackerrank",
+                  price: "-₹50.00",
+                  time: "16:30 PM",
+                  color: 0xffebf9ff,
+                  date: ""),
               const Gap(10),
             ],
           ),
