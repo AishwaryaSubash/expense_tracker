@@ -9,7 +9,7 @@ class AddExpense extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    // preferredSize: Size.fromHeight(50),
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
@@ -24,7 +24,7 @@ class AddExpense extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: SizedBox(
-          height: size.height * 0.7,
+          height: size.height * 0.4,
           child: Stack(
             children: [
               const Background(),
@@ -37,7 +37,7 @@ class AddExpense extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     width: size.width * 0.8,
-                    height: size.height * 0.5,
+                    height: size.height * 0.4,
                     child: const InputFields(),
                   ),
                 ),
