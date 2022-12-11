@@ -157,13 +157,11 @@ class _LoginState extends State<Login> {
                     showDialog<String>(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                        title: const Text('AlertDialog Title'),
-                        content: const Text('AlertDialog description'),
+                        title: const Text('Error'),
+                        content: Text(
+                          result["message"],
+                        ),
                         actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, 'Cancel'),
-                            child: const Text('Cancel'),
-                          ),
                           TextButton(
                             onPressed: () => Navigator.pop(context, 'OK'),
                             child: const Text('OK'),
