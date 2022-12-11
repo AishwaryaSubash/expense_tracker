@@ -5,6 +5,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
+addStringToSF(String id) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString('userId', id);
+}
 
 Future<dynamic> createAlbum(String username, String password) async {
   final response = await http.post(
@@ -148,6 +154,9 @@ class _LoginState extends State<Login> {
                           builder: (context) => const HomePage(),
                         ),
                         (Route route) => false);
+                    addStringToSF(
+                      result["userId"],
+                    );
                   } else {
                     // print(result);
                     showDialog<String>(

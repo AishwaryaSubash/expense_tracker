@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/homepage.dart';
 
 import 'package:flutter_application_1/modal.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
 }
 
 class MyApp extends StatelessWidget {
@@ -30,7 +33,39 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // home: const HomePage(),
-      home: const Modal(),
+      home: const MyHome(),
     );
+  }
+}
+
+class MyHome extends StatefulWidget {
+  const MyHome({super.key});
+
+  @override
+  State<MyHome> createState() => _MyHomeState();
+}
+
+class _MyHomeState extends State<MyHome> {
+  bool isUser = false;
+  @override
+  initState() {
+    super.initState();
+    getStringValuesSF() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      //Return String
+      String? stringValue = prefs.getString('userId');
+      if (stringValue != null) {
+        setState(() {
+          isUser = true;
+        });
+      }
+    }
+
+    getStringValuesSF();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return isUser ? const HomePage() : const Modal();
   }
 }
