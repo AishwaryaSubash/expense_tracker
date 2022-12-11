@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 class Cards extends StatelessWidget {
@@ -87,14 +88,15 @@ class Cards extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Credit",
+                    "Name",
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
                     ),
                   ),
+                  const Gap(4),
                   Text(
-                    "5331 9034 8734 2536",
+                    "Akash",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: size.width > 330 ? 15 : 10,
@@ -103,11 +105,14 @@ class Cards extends StatelessWidget {
                   ),
                 ],
               ),
-              Image.asset(
-                'assets/images/mc.png',
-                width: 100,
-                height: 100,
-                colorBlendMode: BlendMode.softLight,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SvgPicture.network(
+                  'https://avatars.dicebear.com/api/bottts/Akash.svg',
+                  width: 90,
+                  height: 90,
+                  colorBlendMode: BlendMode.softLight,
+                ),
               ),
             ],
           )
