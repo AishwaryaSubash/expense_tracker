@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/background.dart';
 import 'package:flutter_application_1/bottomnavigation.dart';
 import 'package:flutter_application_1/inputfields.dart';
+import 'package:gap/gap.dart';
 
 class AddExpense extends StatelessWidget {
   const AddExpense({super.key});
@@ -9,7 +10,7 @@ class AddExpense extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    // preferredSize: Size.fromHeight(50),
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
@@ -24,7 +25,7 @@ class AddExpense extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: SizedBox(
-          height: size.height * 0.7,
+          height: 250,
           child: Stack(
             children: [
               const Background(),
@@ -37,7 +38,6 @@ class AddExpense extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     width: size.width * 0.8,
-                    height: size.height * 0.5,
                     child: const InputFields(),
                   ),
                 ),
