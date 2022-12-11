@@ -133,9 +133,11 @@ class _CardsState extends State<Cards> {
                 child: SizedBox(
                   width: 100,
                   height: 100,
-                  child: Image.network(
-                    "https://avatars.dicebear.com/api/bottts/$uuid.png?scale=100",
-                  ),
+                  child: (uuid != "default")
+                      ? Image.network(
+                          "https://avatars.dicebear.com/api/bottts/$uuid.png?scale=100",
+                        )
+                      : null,
                 ),
               ),
             ],
