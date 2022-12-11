@@ -1,5 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+
+getStringValuesSF() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  //Return String
+  String? stringValue = prefs.getString('userId');
+  return stringValue;
+}
 
 class Chart extends StatefulWidget {
   const Chart({super.key});
@@ -11,12 +22,35 @@ class Chart extends StatefulWidget {
 class ChartData {
   ChartData({required this.x, required this.y});
   final String x;
-  final double y;
+  final int y;
 }
 
 class _ChartState extends State<Chart> {
   late TooltipBehavior _tooltipBehavior;
   late SelectionBehavior _selectionBehavior;
+
+  var stat;
+
+  Future<dynamic> fetchAlbum() async {
+    var res = await getStringValuesSF();
+
+    final response = await http.get(
+      Uri.parse("https://expense-backend.vercel.app/stats/$res"),
+    );
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      // print(response.body);
+      setState(() {
+        stat = jsonDecode(response.body);
+      });
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load statistics');
+    }
+  }
 
   @override
   void initState() {
@@ -31,18 +65,41 @@ class _ChartState extends State<Chart> {
       unselectedOpacity: 1,
     );
     super.initState();
+
+    fetchAlbum();
   }
 
   @override
   Widget build(BuildContext context) {
     List<ChartData> chartData = <ChartData>[
-      ChartData(x: 'Mon', y: 100),
-      ChartData(x: 'Tue', y: 50),
-      ChartData(x: 'Wed', y: 30),
-      ChartData(x: 'Thu', y: 70),
-      ChartData(x: 'Fri', y: 20),
-      ChartData(x: 'Sat', y: 60),
-      ChartData(x: 'Sun', y: 85),
+      ChartData(
+        x: 'Mon',
+        y: stat[0]["quota"][1],
+      ),
+      ChartData(
+        x: 'Tue',
+        y: stat[0]["quota"][2],
+      ),
+      ChartData(
+        x: 'Wed',
+        y: stat[0]["quota"][3],
+      ),
+      ChartData(
+        x: 'Thu',
+        y: stat[0]["quota"][4],
+      ),
+      ChartData(
+        x: 'Fri',
+        y: stat[0]["quota"][5],
+      ),
+      ChartData(
+        x: 'Sat',
+        y: stat[0]["quota"][6],
+      ),
+      ChartData(
+        x: 'Sun',
+        y: stat[0]["quota"][0],
+      ),
     ];
     return Container(
       decoration: BoxDecoration(
