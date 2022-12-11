@@ -5,6 +5,13 @@ import 'package:flutter_application_1/bottomnavigation.dart';
 import 'package:flutter_application_1/modal.dart';
 import 'package:flutter_application_1/profilelisting.dart';
 import 'package:gap/gap.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+removeValues() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  //Remove String
+  prefs.remove("userId");
+}
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -46,6 +53,7 @@ class Profile extends StatelessWidget {
                     ),
                     ModalRoute.withName("/Login"),
                   );
+                  removeValues();
                 },
                 child: const Icon(
                   Icons.logout_rounded,
