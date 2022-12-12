@@ -3,8 +3,6 @@ import 'package:flutter_application_1/background.dart';
 import 'package:flutter_application_1/bottomnavigation.dart';
 import 'package:flutter_application_1/inputfields.dart';
 
-import 'package:gap/gap.dart';
-
 class AddExpense extends StatelessWidget {
   const AddExpense({super.key});
 
@@ -52,13 +50,11 @@ class AddExpense extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Container(
                     width: size.width,
-                    
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50),
                         topRight: Radius.circular(50),
                       ),
-                      
                       gradient: const LinearGradient(
                         begin: Alignment(1.0, -1.0),
                         end: Alignment(-1.0, 1.0),

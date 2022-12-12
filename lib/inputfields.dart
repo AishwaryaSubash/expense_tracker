@@ -1,8 +1,38 @@
-import 'dart:ui';
+import 'dart:async';
+import 'dart:convert';
+import 'package:flutter_application_1/homepage.dart';
+import 'package:http/http.dart' as http;
+import 'package:gap/gap.dart';
 
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+getStringValuesSF() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  //Return String
+  String? stringValue = prefs.getString('userId');
+  return stringValue;
+}
+
+Future<dynamic> createAlbum(String description, int amount) async {
+  String id = await getStringValuesSF();
+  final response = await http.post(
+    Uri.parse('https://expense-backend.vercel.app/expense/addExpense'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(
+        {'userId': id, 'amount': amount, 'description': description}),
+  );
+
+  var result = jsonDecode(response.body);
+  if (response.statusCode == 201) {
+    return result;
+  } else {
+    result["statusCode"] = response.statusCode;
+    return result;
+  }
+}
 
 class InputFields extends StatefulWidget {
   const InputFields({super.key});
@@ -13,6 +43,11 @@ class InputFields extends StatefulWidget {
 
 class _InputFieldsState extends State<InputFields> {
   TextEditingController dateInput = TextEditingController();
+  final fieldText = TextEditingController();
+  final TextEditingController _controller1 = TextEditingController();
+  final TextEditingController _controller2 = TextEditingController();
+  bool isLoading = false;
+  Future<dynamic>? _futureAlbum;
 
   @override
   void initState() {
@@ -52,7 +87,8 @@ class _InputFieldsState extends State<InputFields> {
                     ),
                   ],
                 ),
-                const TextField(
+                TextField(
+                  controller: _controller1,
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.white,
@@ -85,7 +121,8 @@ class _InputFieldsState extends State<InputFields> {
                     ),
                   ],
                 ),
-                const TextField(
+                TextField(
+                  controller: _controller2,
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.white,
@@ -109,7 +146,48 @@ class _InputFieldsState extends State<InputFields> {
               backgroundColor: const Color(0xff1d2a30),
               foregroundColor: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () async {
+              setState(
+                () {
+                  isLoading = true;
+                  int amt = int.parse(_controller2.text);
+                  _futureAlbum = createAlbum(_controller1.text, amt);
+                },
+              );
+
+              var result = await _futureAlbum;
+              // print(id);
+              print(result);
+              if (result["statusCode"] == 400) {
+                showDialog<String>(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text('Error'),
+                    content: Text(
+                      result["message"],
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          setState(
+                            () {
+                              isLoading = false;
+                            },
+                          );
+                          Navigator.pop(context, 'OK');
+                        },
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const HomePage()));
+                fieldText.clear();
+              }
+            },
             label: const Text(
               'Add Expense',
               style: TextStyle(
