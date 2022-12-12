@@ -110,6 +110,40 @@ class _StatState extends State<Stat> {
     fetchAlbum();
   }
 
+  void refreshPull() async {
+    chartData = <ChartData>[
+      ChartData(
+        x: 'Mon',
+        y: 0,
+      ),
+      ChartData(
+        x: 'Tue',
+        y: 0,
+      ),
+      ChartData(
+        x: 'Wed',
+        y: 0,
+      ),
+      ChartData(
+        x: 'Thu',
+        y: 0,
+      ),
+      ChartData(
+        x: 'Fri',
+        y: 0,
+      ),
+      ChartData(
+        x: 'Sat',
+        y: 0,
+      ),
+      ChartData(
+        x: 'Sun',
+        y: 0,
+      ),
+    ];
+    await fetchAlbum();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,126 +163,137 @@ class _StatState extends State<Stat> {
       bottomNavigationBar: const BottomNavigation(
         page: "Stat",
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Expenses Average",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 17,
+      body: RefreshIndicator(
+        onRefresh: () {
+          return Future.delayed(const Duration(seconds: 1), () {
+            setState(
+              () {
+                refreshPull();
+              },
+            );
+          });
+        },
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Expenses Average",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 17,
+                  ),
                 ),
-              ),
-              Row(
-                children: [
-                  Text(
-                    "₹$avg",
-                    style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w600,
+                Row(
+                  children: [
+                    Text(
+                      "₹$avg",
+                      style: const TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                  const Gap(20),
-                  const Icon(
-                    Icons.arrow_drop_down_circle_rounded,
-                    size: 15,
-                  ),
-                  const Text(
-                    "20%",
-                    style: TextStyle(
-                      fontSize: 14,
+                    const Gap(20),
+                    const Icon(
+                      Icons.arrow_drop_down_circle_rounded,
+                      size: 15,
                     ),
-                  ),
-                ],
-              ),
-              const Gap(20),
-              Chart(chartData: chartData, stat: stat),
-              const Gap(25),
-              const Toggler(),
-              const Gap(20),
-              const Text(
-                "Categories",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                    const Text(
+                      "20%",
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const Gap(20),
-              const ListCard(
-                  image: "hackerrank",
-                  name: "Hackerrank",
-                  price: "-₹50.00",
-                  time: "16:30 PM",
-                  color: 0xffebf9ff,
-                  date: ""),
-              const ListCard(
-                  image: "hackerrank",
-                  name: "Hackerrank",
-                  price: "-₹50.00",
-                  time: "16:30 PM",
-                  color: 0xffebf9ff,
-                  date: ""),
-              const ListCard(
-                  image: "hackerrank",
-                  name: "Hackerrank",
-                  price: "-₹50.00",
-                  time: "16:30 PM",
-                  color: 0xffebf9ff,
-                  date: ""),
-              const ListCard(
-                  image: "hackerrank",
-                  name: "Hackerrank",
-                  price: "-₹50.00",
-                  time: "16:30 PM",
-                  color: 0xffebf9ff,
-                  date: ""),
-              const ListCard(
-                  image: "hackerrank",
-                  name: "Hackerrank",
-                  price: "-₹50.00",
-                  time: "16:30 PM",
-                  color: 0xffebf9ff,
-                  date: ""),
-              const ListCard(
-                  image: "hackerrank",
-                  name: "Hackerrank",
-                  price: "-₹50.00",
-                  time: "16:30 PM",
-                  color: 0xffebf9ff,
-                  date: ""),
-              const ListCard(
-                  image: "hackerrank",
-                  name: "Hackerrank",
-                  price: "-₹50.00",
-                  time: "16:30 PM",
-                  color: 0xffebf9ff,
-                  date: ""),
-              const ListCard(
-                  image: "hackerrank",
-                  name: "Hackerrank",
-                  price: "-₹50.00",
-                  time: "16:30 PM",
-                  color: 0xffebf9ff,
-                  date: ""),
-              const ListCard(
-                  image: "hackerrank",
-                  name: "Hackerrank",
-                  price: "-₹50.00",
-                  time: "16:30 PM",
-                  color: 0xffebf9ff,
-                  date: ""),
-              const ListCard(
-                  image: "hackerrank",
-                  name: "Hackerrank",
-                  price: "-₹50.00",
-                  time: "16:30 PM",
-                  color: 0xffebf9ff,
-                  date: ""),
-              const Gap(10),
-            ],
+                const Gap(20),
+                Chart(chartData: chartData, stat: stat),
+                const Gap(25),
+                const Toggler(),
+                const Gap(20),
+                const Text(
+                  "Categories",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const Gap(20),
+                const ListCard(
+                    image: "hackerrank",
+                    name: "Hackerrank",
+                    price: "-₹50.00",
+                    time: "16:30 PM",
+                    color: 0xffebf9ff,
+                    date: ""),
+                const ListCard(
+                    image: "hackerrank",
+                    name: "Hackerrank",
+                    price: "-₹50.00",
+                    time: "16:30 PM",
+                    color: 0xffebf9ff,
+                    date: ""),
+                const ListCard(
+                    image: "hackerrank",
+                    name: "Hackerrank",
+                    price: "-₹50.00",
+                    time: "16:30 PM",
+                    color: 0xffebf9ff,
+                    date: ""),
+                const ListCard(
+                    image: "hackerrank",
+                    name: "Hackerrank",
+                    price: "-₹50.00",
+                    time: "16:30 PM",
+                    color: 0xffebf9ff,
+                    date: ""),
+                const ListCard(
+                    image: "hackerrank",
+                    name: "Hackerrank",
+                    price: "-₹50.00",
+                    time: "16:30 PM",
+                    color: 0xffebf9ff,
+                    date: ""),
+                const ListCard(
+                    image: "hackerrank",
+                    name: "Hackerrank",
+                    price: "-₹50.00",
+                    time: "16:30 PM",
+                    color: 0xffebf9ff,
+                    date: ""),
+                const ListCard(
+                    image: "hackerrank",
+                    name: "Hackerrank",
+                    price: "-₹50.00",
+                    time: "16:30 PM",
+                    color: 0xffebf9ff,
+                    date: ""),
+                const ListCard(
+                    image: "hackerrank",
+                    name: "Hackerrank",
+                    price: "-₹50.00",
+                    time: "16:30 PM",
+                    color: 0xffebf9ff,
+                    date: ""),
+                const ListCard(
+                    image: "hackerrank",
+                    name: "Hackerrank",
+                    price: "-₹50.00",
+                    time: "16:30 PM",
+                    color: 0xffebf9ff,
+                    date: ""),
+                const ListCard(
+                    image: "hackerrank",
+                    name: "Hackerrank",
+                    price: "-₹50.00",
+                    time: "16:30 PM",
+                    color: 0xffebf9ff,
+                    date: ""),
+                const Gap(10),
+              ],
+            ),
           ),
         ),
       ),
