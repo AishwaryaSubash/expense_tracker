@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/addincome.dart';
 import 'package:flutter_application_1/background.dart';
 import 'package:flutter_application_1/bottomnavigation.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -88,20 +89,23 @@ class _ProfileState extends State<Profile> {
                   Radius.circular(10),
                 ),
               ),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Modal(),
-                    ),
-                    ModalRoute.withName("/Login"),
-                  );
-                  removeValues();
-                },
-                child: const Icon(
-                  Icons.logout_rounded,
-                  color: Colors.white54,
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Modal(),
+                      ),
+                      ModalRoute.withName("/Login"),
+                    );
+                    removeValues();
+                  },
+                  child: const Icon(
+                    Icons.logout_rounded,
+                    color: Colors.white54,
+                  ),
                 ),
               ),
             ),
@@ -173,9 +177,25 @@ class _ProfileState extends State<Profile> {
                           text: "Account info",
                         ),
                         const Gap(25),
-                        const ProfileListing(
-                          icons: Icons.people_alt_rounded,
-                          text: "Personal profile",
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AddIncome(
+                                    size: size,
+                                    uuid: uuid,
+                                  );
+                                },
+                              );
+                            },
+                            child: const ProfileListing(
+                              icons: Icons.currency_rupee_rounded,
+                              text: "Add Income",
+                            ),
+                          ),
                         ),
                         const Gap(25),
                         const ProfileListing(
