@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "${DateFormat.EEEE().format(DateTime.now().toLocal())},",
+                "${DateFormat.EEEE().format(DateTime.now().toLocal())}, ${DateFormat.jm().format(DateTime.now().toLocal())}",
                 style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
