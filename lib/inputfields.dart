@@ -191,8 +191,7 @@ class _InputFieldsState extends State<InputFields> {
               }
 
               var result = await _futureAlbum;
-              // print(id);
-              print(result);
+
               if (result["statusCode"] == 400) {
                 showDialog<String>(
                   barrierDismissible: false,
