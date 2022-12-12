@@ -64,7 +64,7 @@ class ListCard extends StatelessWidget {
                         SizedBox(
                           width: size.width < 380
                               ? size.width * 0.2
-                              : size.width * 0.45,
+                              : size.width * 0.43,
                           child: ReadMoreText(
                             name,
                             trimLines: 1,
