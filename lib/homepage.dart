@@ -147,26 +147,29 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const Gap(25),
-                      ...data["expense"]
-                          .map(
-                            (i) => ListCard(
-                              image: i["description"],
-                              name: i["description"],
-                              price: "-₹${i["amount"]}",
-                              time: DateFormat.jm().format(
-                                DateTime.parse(
-                                  i["date"],
-                                ).toLocal(),
+                      ...List.from(
+                        data["expense"]
+                            .map(
+                              (i) => ListCard(
+                                image: i["description"],
+                                name: i["description"],
+                                price: "-₹${i["amount"]}",
+                                time: DateFormat.jm().format(
+                                  DateTime.parse(
+                                    i["date"],
+                                  ).toLocal(),
+                                ),
+                                color: 0xffebf9ff,
+                                date: DateFormat.E().format(
+                                  DateTime.parse(
+                                    i["date"],
+                                  ).toLocal(),
+                                ),
                               ),
-                              color: 0xffebf9ff,
-                              date: DateFormat.E().format(
-                                DateTime.parse(
-                                  i["date"],
-                                ).toLocal(),
-                              ),
-                            ),
-                          )
-                          .toList(),
+                            )
+                            .toList()
+                            .reversed,
+                      ),
                       const Gap(5),
                     ],
                   ),
