@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:jdenticon_dart/jdenticon_dart.dart';
+import 'package:readmore/readmore.dart';
 
 class ListCard extends StatelessWidget {
   const ListCard({
@@ -21,6 +22,7 @@ class ListCard extends StatelessWidget {
   final String date;
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Column(
       children: [
         Container(
@@ -59,12 +61,22 @@ class ListCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          name,
-                          style: const TextStyle(
-                            color: Color(0xFF041a0e),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                        SizedBox(
+                          width: size.width < 380
+                              ? size.width * 0.2
+                              : size.width * 0.45,
+                          child: ReadMoreText(
+                            name,
+                            trimLines: 1,
+                            trimCollapsedText: '...',
+                            trimExpandedText: ' ...',
+                            delimiter: " ",
+                            trimMode: TrimMode.Line,
+                            style: const TextStyle(
+                              color: Color(0xFF041a0e),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                         Text(

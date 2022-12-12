@@ -44,6 +44,7 @@ dependencies:
   shared_preferences: ^2.0.15
   jdenticon_dart: ^2.0.0
   flutter_svg: ^1.1.6
+  readmore: ^2.2.0
   
 dev_dependencies:
   flutter_test:

@@ -108,7 +108,7 @@ class _CardsState extends State<Cards> {
                   ),
                   const Gap(4),
                   Text(
-                    "Akash",
+                    widget.username,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: size.width > 330 ? 15 : 10,

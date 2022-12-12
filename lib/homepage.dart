@@ -65,17 +65,17 @@ class _HomePageState extends State<HomePage> {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
-                "Sunday,",
-                style: TextStyle(
+                "${DateFormat.EEEE().format(DateTime.now().toLocal())},",
+                style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
                 ),
               ),
               Text(
-                "20 November",
-                style: TextStyle(
+                DateFormat.yMMMMd().format(DateTime.now().toLocal()),
+                style: const TextStyle(
                   color: Color(0xFF041a0e),
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -141,13 +141,13 @@ class _HomePageState extends State<HomePage> {
                             time: DateFormat.jm().format(
                               DateTime.parse(
                                 i["date"],
-                              ),
+                              ).toLocal(),
                             ),
                             color: 0xffebf9ff,
                             date: DateFormat.E().format(
                               DateTime.parse(
                                 i["date"],
-                              ),
+                              ).toLocal(),
                             ),
                           ),
                         )
