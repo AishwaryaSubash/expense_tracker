@@ -145,15 +145,3 @@ class AddExpense extends StatelessWidget {
 
 
 
-// class OpenPainter extends CustomPainter {
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     var paint1 = Paint()
-//       ..color = Color(0xff1d2a30)
-//       ..style = PaintingStyle.fill;
-//     canvas.drawCircle(Offset(90, -50), 300, paint1);
-//   }
-
-//   @override
-//   bool shouldRepaint(CustomPainter oldDelegate) => true;
-// }
