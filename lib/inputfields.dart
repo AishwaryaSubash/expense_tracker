@@ -89,11 +89,11 @@ class _InputFieldsState extends State<InputFields> {
                 ),
                 TextField(
                   controller: _controller1,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Colors.white,
                   ),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.white,
@@ -123,11 +123,11 @@ class _InputFieldsState extends State<InputFields> {
                 ),
                 TextField(
                   controller: _controller2,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Colors.white,
                   ),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.white,
@@ -147,13 +147,48 @@ class _InputFieldsState extends State<InputFields> {
               foregroundColor: Colors.white,
             ),
             onPressed: () async {
-              setState(
-                () {
-                  isLoading = true;
-                  int amt = int.parse(_controller2.text);
-                  _futureAlbum = createAlbum(_controller1.text, amt);
-                },
-              );
+              // ignore: unnecessary_type_check
+              if (_controller1.text is! String ||
+                  // ignore: unnecessary_type_check
+
+                  _controller1.text.isEmpty ||
+                  _controller2.text.isEmpty ||
+                  int.parse(_controller2.text) <= 0) {
+                showDialog<String>(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        "Description must be string\nAmount cannot be integer\nValues cannot be null\nAmount cannot less than or equal 0"),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          setState(
+                            () {
+                              isLoading = false;
+                            },
+                          );
+                          Navigator.pop(context, 'OK');
+                        },
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                setState(
+                  () {
+                    isLoading = true;
+                    int amt = int.parse(_controller2.text);
+
+                    _futureAlbum = createAlbum(
+                      _controller1.text,
+                      int.parse(_controller2.text),
+                    );
+                  },
+                );
+              }
 
               var result = await _futureAlbum;
               // print(id);
@@ -183,8 +218,13 @@ class _InputFieldsState extends State<InputFields> {
                   ),
                 );
               } else {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const HomePage()));
+                // ignore: use_build_context_synchronously
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomePage(),
+                    ),
+                    (Route route) => false);
                 fieldText.clear();
               }
             },
