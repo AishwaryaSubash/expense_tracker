@@ -53,6 +53,11 @@ class _HomePageState extends State<HomePage> {
     fetchAlbum();
   }
 
+  void refreshPull() {
+    initializeDateFormatting("in");
+    fetchAlbum();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,52 +116,62 @@ class _HomePageState extends State<HomePage> {
         page: "Home",
       ),
       body: (data != null)
-          ? SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(30, 18, 30, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Cards(
-                      uuid: uuid,
-                      username: data["username"],
-                      income: data["income"],
-                    ),
-                    const Gap(30),
-                    const Text(
-                      "Today's Transactions",
-                      style: TextStyle(
-                        color: Color(0xFF041a0e),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+          ? RefreshIndicator(
+              onRefresh: () {
+                return Future.delayed(const Duration(seconds: 1), () {
+                  setState(
+                    () {
+                      refreshPull();
+                    },
+                  );
+                });
+              },
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 18, 30, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Cards(
+                        uuid: uuid,
+                        username: data["username"],
+                        income: data["income"],
                       ),
-                    ),
-                    const Gap(25),
-                    ...data["expense"]
-                        .map(
-                          (i) => ListCard(
-                            image: i["description"],
-                            name: i["description"],
-                            price: "-₹${i["amount"]}",
-                            time: DateFormat.jm().format(
-                              DateTime.parse(
-                                i["date"],
-                              ).toLocal(),
+                      const Gap(30),
+                      const Text(
+                        "Today's Transactions",
+                        style: TextStyle(
+                          color: Color(0xFF041a0e),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const Gap(25),
+                      ...data["expense"]
+                          .map(
+                            (i) => ListCard(
+                              image: i["description"],
+                              name: i["description"],
+                              price: "-₹${i["amount"]}",
+                              time: DateFormat.jm().format(
+                                DateTime.parse(
+                                  i["date"],
+                                ).toLocal(),
+                              ),
+                              color: 0xffebf9ff,
+                              date: DateFormat.E().format(
+                                DateTime.parse(
+                                  i["date"],
+                                ).toLocal(),
+                              ),
                             ),
-                            color: 0xffebf9ff,
-                            date: DateFormat.E().format(
-                              DateTime.parse(
-                                i["date"],
-                              ).toLocal(),
-                            ),
-                          ),
-                        )
-                        .toList(),
-                    const Gap(5),
-                  ],
+                          )
+                          .toList(),
+                      const Gap(5),
+                    ],
+                  ),
                 ),
-              ),
-            )
+              ))
           : const Padding(
               padding: EdgeInsets.all(20.0),
               child: SpinKitCircle(
