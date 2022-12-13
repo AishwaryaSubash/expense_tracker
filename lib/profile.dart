@@ -159,24 +159,6 @@ class _ProfileState extends State<Profile> {
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: <Widget>[
-                        const ProfileListing(
-                          icons: Icons.person_add,
-                          text: "Invite Friends",
-                        ),
-                        const Gap(10),
-                        Row(
-                          children: const [
-                            Expanded(
-                              child: Divider(),
-                            ),
-                          ],
-                        ),
-                        const Gap(25),
-                        const ProfileListing(
-                          icons: Icons.person,
-                          text: "Account info",
-                        ),
-                        const Gap(25),
                         MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
@@ -196,6 +178,24 @@ class _ProfileState extends State<Profile> {
                               text: "Add Income",
                             ),
                           ),
+                        ),
+                        const Gap(10),
+                        Row(
+                          children: const [
+                            Expanded(
+                              child: Divider(),
+                            ),
+                          ],
+                        ),
+                        const Gap(25),
+                        const ProfileListing(
+                          icons: Icons.person_add,
+                          text: "Invite Friends",
+                        ),
+                        const Gap(25),
+                        const ProfileListing(
+                          icons: Icons.person,
+                          text: "Account info",
                         ),
                         const Gap(25),
                         const ProfileListing(

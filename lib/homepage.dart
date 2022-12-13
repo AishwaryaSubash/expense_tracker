@@ -45,11 +45,12 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  NumberFormat? formatter;
   @override
   void initState() {
     super.initState();
     initializeDateFormatting("in");
-
+    formatter = NumberFormat('#,##,000');
     fetchAlbum();
   }
 
@@ -135,11 +136,11 @@ class _HomePageState extends State<HomePage> {
                       Cards(
                         uuid: uuid,
                         username: data["username"],
-                        income: data["income"],
+                        income: formatter?.format(data["income"]),
                       ),
                       const Gap(30),
                       const Text(
-                        "Today's Transactions",
+                        "All Transactions",
                         style: TextStyle(
                           color: Color(0xFF041a0e),
                           fontWeight: FontWeight.bold,
@@ -153,7 +154,9 @@ class _HomePageState extends State<HomePage> {
                               (i) => ListCard(
                                 image: i["description"],
                                 name: i["description"],
-                                price: "-₹${i["amount"]}",
+                                price: (i["amount"].toString().length > 3)
+                                    ? "-₹${formatter?.format(i["amount"])}"
+                                    : "-₹${i["amount"]}",
                                 time: DateFormat.jm().format(
                                   DateTime.parse(
                                     i["date"],

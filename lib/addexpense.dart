@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/background.dart';
 import 'package:flutter_application_1/bottomnavigation.dart';
 import 'package:flutter_application_1/inputfields.dart';
 
@@ -24,7 +23,7 @@ class AddExpense extends StatelessWidget {
         page: "Add",
       ),
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           height: size.height - 56,
           child: Flex(
             direction:
@@ -55,7 +54,7 @@ class AddExpense extends StatelessWidget {
                         topLeft: Radius.circular(50),
                         topRight: Radius.circular(50),
                       ),
-                      gradient: const LinearGradient(
+                      gradient: LinearGradient(
                         begin: Alignment(1.0, -1.0),
                         end: Alignment(-1.0, 1.0),
                         colors: [
