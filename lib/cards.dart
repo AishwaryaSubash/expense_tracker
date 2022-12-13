@@ -10,7 +10,8 @@ class Cards extends StatefulWidget {
   });
   final String username;
   final String uuid;
-  final int income;
+  final String? income;
+
   @override
   State<Cards> createState() => _CardsState();
 }
