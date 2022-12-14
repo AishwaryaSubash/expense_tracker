@@ -120,19 +120,19 @@ class _ProfileState extends State<Profile> {
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: size.height * 0.35,
+                    height: size.height * 0.27,
                     child: Stack(
                       children: <Widget>[
                         const Background(),
                         Positioned.fill(
-                          bottom: -size.height * 0.22,
+                          bottom: -size.height * 0.09,
                           child: Align(
                             alignment: Alignment.center,
                             child: CircleAvatar(
                               backgroundImage: NetworkImage(
                                 "https://avatars.dicebear.com/api/bottts/$uuid.png?scale=100",
                               ),
-                              radius: size.height * 0.06,
+                              radius: size.height * 0.08,
                               backgroundColor: Colors.transparent,
                             ),
                           ),
@@ -159,6 +159,7 @@ class _ProfileState extends State<Profile> {
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: <Widget>[
+                        const Gap(8),
                         MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
