@@ -116,7 +116,6 @@ class ListCard extends StatelessWidget {
             ],
           ),
         ),
-        const Gap(10),
       ],
     );
   }

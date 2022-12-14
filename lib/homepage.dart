@@ -177,51 +177,56 @@ class _HomePageState extends State<HomePage> {
                       ...List.from(
                         data["expense"]
                             .map(
-                              (i) => Slidable(
-                                key: ValueKey(i["id"]),
-                                endActionPane: ActionPane(
-                                  motion: const ScrollMotion(),
-                                  children: [
-                                    SlidableAction(
-                                      onPressed: (context) async {
-                                        setState(() {
-                                          _futureAlbum = deleteAlbum(
-                                            i["id"],
-                                          );
-                                        });
+                              (i) => Column(
+                                children: [
+                                  Slidable(
+                                    key: ValueKey(i["id"]),
+                                    endActionPane: ActionPane(
+                                      motion: const ScrollMotion(),
+                                      children: [
+                                        SlidableAction(
+                                          onPressed: (context) async {
+                                            setState(() {
+                                              _futureAlbum = deleteAlbum(
+                                                i["id"],
+                                              );
+                                            });
 
-                                        var result = await _futureAlbum;
-                                        // print(result);
+                                            var result = await _futureAlbum;
+                                            // print(result);
 
-                                        if (result == true) {
-                                          refreshPull();
-                                        }
-                                      },
-                                      backgroundColor: Colors.red,
-                                      // foregroundColor: Colors.white,
-                                      icon: Icons.delete,
-                                      label: 'Delete',
+                                            if (result == true) {
+                                              refreshPull();
+                                            }
+                                          },
+                                          backgroundColor: Colors.red,
+                                          // foregroundColor: Colors.white,
+                                          icon: Icons.delete,
+                                          label: 'Delete',
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                child: ListCard(
-                                  image: i["id"],
-                                  name: i["description"],
-                                  price: (i["amount"].toString().length > 3)
-                                      ? "-₹${formatter?.format(i["amount"])}"
-                                      : "-₹${i["amount"]}",
-                                  time: DateFormat.jm().format(
-                                    DateTime.parse(
-                                      i["date"],
-                                    ).toLocal(),
+                                    child: ListCard(
+                                      image: i["id"],
+                                      name: i["description"],
+                                      price: (i["amount"].toString().length > 3)
+                                          ? "-₹${formatter?.format(i["amount"])}"
+                                          : "-₹${i["amount"]}",
+                                      time: DateFormat.jm().format(
+                                        DateTime.parse(
+                                          i["date"],
+                                        ).toLocal(),
+                                      ),
+                                      color: 0xffebf9ff,
+                                      date: DateFormat.E().format(
+                                        DateTime.parse(
+                                          i["date"],
+                                        ).toLocal(),
+                                      ),
+                                    ),
                                   ),
-                                  color: 0xffebf9ff,
-                                  date: DateFormat.E().format(
-                                    DateTime.parse(
-                                      i["date"],
-                                    ).toLocal(),
-                                  ),
-                                ),
+                                  const Gap(10),
+                                ],
                               ),
                             )
                             .toList()
