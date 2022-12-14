@@ -246,7 +246,7 @@ class _StatState extends State<Stat> {
                               (i) => Column(
                                 children: [
                                   ListCard(
-                                    image: i["description"],
+                                    image: i["id"],
                                     name: i["description"],
                                     price: (i["amount"].toString().length > 3)
                                         ? "-₹${formatter?.format(i["amount"])}"
