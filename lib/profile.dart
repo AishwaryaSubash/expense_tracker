@@ -102,6 +102,8 @@ class _ProfileState extends State<Profile> {
                         actions: <Widget>[
                           TextButton(
                             onPressed: () {
+                              removeValues();
+
                               Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
@@ -109,6 +111,7 @@ class _ProfileState extends State<Profile> {
                                 ),
                                 ModalRoute.withName("/Login"),
                               );
+
                               // Navigator.pop(context, 'OK');
                             },
                             child: const Text('OK'),
@@ -129,7 +132,6 @@ class _ProfileState extends State<Profile> {
                     //   ),
                     //   ModalRoute.withName("/Login"),
                     // );
-                    removeValues();
                   },
                   child: const Icon(
                     Icons.logout_rounded,
