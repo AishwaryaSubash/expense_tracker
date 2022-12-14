@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:gap/gap.dart';
 
 class Cards extends StatefulWidget {
@@ -20,6 +21,8 @@ class _CardsState extends State<Cards> {
   @override
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     Size size = MediaQuery.of(context).size;
     return Container(
       padding: const EdgeInsets.only(
@@ -38,24 +41,25 @@ class _CardsState extends State<Cards> {
           ),
         ],
         borderRadius: BorderRadius.circular(20),
-        //color: const Color(0xff1d2a30),
-        gradient: const LinearGradient(
-          begin: Alignment(1.0, -1.0),
-          end: Alignment(-1.0, 1.0),
-          colors: [
-            Color(0xff1d2a30),
-            Color(0xFF1f3038),
-          ],
-        ),
+        color: Color(0xEEEF3651),
+        // gradient: const LinearGradient(
+        //   begin: Alignment(1.0, -1.0),
+        //   end: Alignment(-1.0, 1.0),
+        //   colors: [
+        //     Color(0xff1d2a30),
+        //     Color(0xFF1f3038),
+        //   ],
+        // ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              const Text(
+              Text(
                 "Total Balance",
-                style: TextStyle(color: Colors.grey),
+                style:
+                    TextStyle(color: isDarkMode ? Colors.white : Colors.grey),
               ),
               const Spacer(),
               Padding(
@@ -100,10 +104,10 @@ class _CardsState extends State<Cards> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     "Name",
                     style: TextStyle(
-                      color: Colors.grey,
+                      color: isDarkMode ? Colors.white : Colors.grey,
                       fontSize: 16,
                     ),
                   ),

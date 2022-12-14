@@ -3,6 +3,7 @@ import 'package:flutter_application_1/homepage.dart';
 
 import 'package:flutter_application_1/modal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_application_1/themeProvider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,22 +17,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      themeMode: ThemeMode.system,
+      theme: CustomTheme.lightTheme,
+      darkTheme: CustomTheme.darkTheme,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        bottomSheetTheme: const BottomSheetThemeData(
-          backgroundColor: Colors.transparent,
-        ),
-        fontFamily: "Nunito",
-        scaffoldBackgroundColor: const Color(0xFFf6f6f6),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFFf6f6f6),
-          elevation: 0,
-          titleTextStyle: TextStyle(
-            color: Color(0xFF979797),
-          ),
-        ),
-      ),
+      // theme:
+      // ThemeData(
+      //   bottomSheetTheme: const BottomSheetThemeData(
+      //     backgroundColor: Colors.transparent,
+      //   ),
+      //   fontFamily: "Nunito",
+      //   scaffoldBackgroundColor: const Color(0xFFf6f6f6),
+      //   appBarTheme: const AppBarTheme(
+      //     backgroundColor: Color(0xFFf6f6f6),
+      //     elevation: 0,
+      //     titleTextStyle: TextStyle(
+      //       color: Color(0xFF979797),
+      //     ),
+      //   ),
+      // ),
       // home: const HomePage(),
       home: const MyHome(),
     );

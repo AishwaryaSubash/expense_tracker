@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:jdenticon_dart/jdenticon_dart.dart';
@@ -22,6 +23,8 @@ class ListCard extends StatelessWidget {
   final String date;
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     Size size = MediaQuery.of(context).size;
     return Column(
       children: [
@@ -29,7 +32,7 @@ class ListCard extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
+            color: isDarkMode ? Colors.grey.shade500 : Colors.white,
           ),
           child: Row(
             children: <Widget>[
@@ -81,8 +84,10 @@ class ListCard extends StatelessWidget {
                         ),
                         Text(
                           time,
-                          style: const TextStyle(
-                            color: Color(0xFF979797),
+                          style: TextStyle(
+                            color: isDarkMode
+                                ? Colors.white
+                                : const Color(0xFF979797),
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
                           ),
@@ -102,8 +107,9 @@ class ListCard extends StatelessWidget {
                         ),
                         Text(
                           date,
-                          style: const TextStyle(
-                            color: Color(0xFF979797),
+                          style: TextStyle(
+                            color:
+                                isDarkMode ? Colors.white : Color(0xFF979797),
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
                           ),

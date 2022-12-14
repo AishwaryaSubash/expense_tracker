@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_application_1/bottomnavigation.dart';
 import 'package:flutter_application_1/cards.dart';
 import 'package:flutter_application_1/listcard.dart';
@@ -87,6 +88,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+    print(isDarkMode);
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -107,8 +111,10 @@ class _HomePageState extends State<HomePage> {
               ),
               Text(
                 DateFormat.yMMMMd().format(DateTime.now().toLocal()),
-                style: const TextStyle(
-                  color: Color(0xFF041a0e),
+                style: TextStyle(
+                  color: isDarkMode
+                      ? const Color(0xFFb2b2b2)
+                      : const Color(0xFF041a0e),
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
@@ -137,7 +143,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
-        backgroundColor: const Color(0xFFf6f6f6),
+        // backgroundColor: const Color(0xFFf6f6f6),
       ),
       bottomNavigationBar: const BottomNavigation(
         page: "Home",
@@ -165,10 +171,12 @@ class _HomePageState extends State<HomePage> {
                         income: formatter?.format(data["income"]),
                       ),
                       const Gap(30),
-                      const Text(
+                      Text(
                         "All Transactions",
                         style: TextStyle(
-                          color: Color(0xFF041a0e),
+                          color: isDarkMode
+                              ? Colors.white70
+                              : const Color(0xFF041a0e),
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
