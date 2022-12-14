@@ -151,8 +151,8 @@ class _InputFieldsState extends State<InputFields> {
               if (_controller1.text is! String ||
                   // ignore: unnecessary_type_check
 
-                  _controller1.text.isEmpty ||
-                  _controller2.text.isEmpty ||
+                  _controller1.text.length == 0 ||
+                  _controller2.text.length == 0 ||
                   int.parse(_controller2.text) <= 0) {
                 showDialog<String>(
                   barrierDismissible: false,
@@ -200,6 +200,31 @@ class _InputFieldsState extends State<InputFields> {
                     title: const Text('Error'),
                     content: Text(
                       result["message"],
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          setState(
+                            () {
+                              isLoading = false;
+                            },
+                          );
+                          Navigator.pop(context, 'OK');
+                        },
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              if (result["statusCode"] == 403) {
+                showDialog<String>(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text('Error'),
+                    content: Text(
+                      result["message"][0],
                     ),
                     actions: <Widget>[
                       TextButton(

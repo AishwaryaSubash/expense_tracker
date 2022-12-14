@@ -39,6 +39,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  bool _isHidden = true;
   final TextEditingController _controller1 = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
   Future<dynamic>? _futureAlbum;
@@ -117,8 +118,15 @@ class _SignUpState extends State<SignUp> {
                     Expanded(
                       child: TextField(
                         controller: _controller2,
+                        obscureText: _isHidden,
                         // style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
+                          suffix: InkWell(
+                            onTap: _togglePasswordView,
+                            child: Icon(_isHidden
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                          ),
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
@@ -136,8 +144,8 @@ class _SignUpState extends State<SignUp> {
                   setState(
                     () {
                       isLoading = true;
-                      _futureAlbum =
-                          createAlbum(_controller1.text, _controller2.text);
+                      _futureAlbum = createAlbum(
+                          _controller1.text.trim(), _controller2.text);
                     },
                   );
 
@@ -210,5 +218,11 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
   }
 }
