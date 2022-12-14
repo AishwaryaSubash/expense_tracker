@@ -84,7 +84,7 @@ class _ProfileState extends State<Profile> {
               padding: const EdgeInsets.all(12.0),
               decoration: const BoxDecoration(
                 shape: BoxShape.rectangle,
-                color: Color(0xff122945),
+                color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(10),
                 ),
@@ -93,18 +93,47 @@ class _ProfileState extends State<Profile> {
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Modal(),
+                    showDialog<String>(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Alert'),
+                        content: const Text("Do you want to logout?"),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Modal(),
+                                ),
+                                ModalRoute.withName("/Login"),
+                              );
+                              // Navigator.pop(context, 'OK');
+                            },
+                            child: const Text('OK'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context, 'Cancel');
+                            },
+                            child: const Text('Cancel'),
+                          ),
+                        ],
                       ),
-                      ModalRoute.withName("/Login"),
                     );
+                    // Navigator.pushAndRemoveUntil(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const Modal(),
+                    //   ),
+                    //   ModalRoute.withName("/Login"),
+                    // );
                     removeValues();
                   },
                   child: const Icon(
                     Icons.logout_rounded,
-                    color: Colors.white54,
+                    color: Color(0xff122945),
                   ),
                 ),
               ),

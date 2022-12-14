@@ -41,22 +41,25 @@ class Modal extends StatelessWidget {
                       },
                     );
                   },
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    width: size.width * 0.4,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      width: size.width * 0.4,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: Color(0xff1d2a31),
                       ),
-                      color: Color(0xff1d2a31),
-                    ),
-                    child: const Text(
-                      "Login",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
+                      child: const Text(
+                        "Login",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
@@ -75,19 +78,22 @@ class Modal extends StatelessWidget {
                       },
                     );
                   },
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    width: size.width * 0.4,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      width: size.width * 0.4,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: Color(0xff1d2a31),
                       ),
-                      color: Color(0xff1d2a31),
-                    ),
-                    child: const Text(
-                      "SignUp",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                      textAlign: TextAlign.center,
+                      child: const Text(
+                        "SignUp",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),

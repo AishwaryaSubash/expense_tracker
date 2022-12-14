@@ -192,25 +192,28 @@ class _SignUpState extends State<SignUp> {
                     );
                   }
                 },
-                child: Container(
-                  padding: const EdgeInsets.only(
-                      bottom: 10, top: 10, left: 10, right: 10),
-                  width: size.width * 0.2,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFe8f6fd),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                        bottom: 10, top: 10, left: 10, right: 10),
+                    width: size.width * 0.2,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFe8f6fd),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
                     ),
+                    child: isLoading
+                        ? const SpinKitFadingCircle(
+                            size: 30,
+                            color: Color(0xff1d2a31),
+                          )
+                        : const Text(
+                            "SignUp",
+                            textAlign: TextAlign.center,
+                          ),
                   ),
-                  child: isLoading
-                      ? const SpinKitFadingCircle(
-                          size: 30,
-                          color: Color(0xff1d2a31),
-                        )
-                      : const Text(
-                          "SignUp",
-                          textAlign: TextAlign.center,
-                        ),
                 ),
               ),
             ],
