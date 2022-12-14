@@ -19,16 +19,6 @@ class _ModalState extends State<Modal> {
       x = details.position.dx;
       y = details.position.dy;
     });
-
-    print("$x  $y");
-  }
-
-  void paint(Canvas canvas, Size size) {
-    Offset p2 = Offset(250, 150);
-    final paint = Paint()
-      ..color = Colors.black
-      ..strokeWidth = 4;
-    canvas.drawCircle(p2, 20, paint);
   }
 
   @override
@@ -132,7 +122,7 @@ class _ModalState extends State<Modal> {
                             filterQuality: FilterQuality.high,
                           ),
                         ),
-                        Gap((size.width < size.height) ? 70 : 100),
+                        const Gap(70),
                         Flex(
                           direction: (size.width < size.height)
                               ? Axis.vertical
