@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bottomnavigation.dart';
 import 'package:flutter_application_1/cards.dart';
 import 'package:flutter_application_1/listcard.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -26,6 +27,7 @@ getStringValuesSF() async {
 }
 
 class _HomePageState extends State<HomePage> {
+  dynamic _futureAlbum;
   dynamic data = null;
   String uuid = "";
   Future<dynamic> fetchAlbum() async {
@@ -45,7 +47,31 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future<dynamic> deleteAlbum(String id) async {
+    final http.Response response = await http.delete(
+      Uri.parse("https://expense-backend.vercel.app/expense/deleteExpense/$id"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON. After deleting,
+      // you'll get an empty JSON `{}` response.
+      // Don't return `null`, otherwise `snapshot.hasData`
+      // will always return false on `FutureBuilder`.
+      // print(response.body);
+      return true;
+    } else {
+      // If the server did not return a "200 OK response",
+      // then throw an exception.
+      return false;
+    }
+  }
+
   NumberFormat? formatter;
+
   @override
   void initState() {
     super.initState();
@@ -54,9 +80,9 @@ class _HomePageState extends State<HomePage> {
     fetchAlbum();
   }
 
-  void refreshPull() {
+  void refreshPull() async {
     initializeDateFormatting("in");
-    fetchAlbum();
+    await fetchAlbum();
   }
 
   @override
@@ -151,22 +177,50 @@ class _HomePageState extends State<HomePage> {
                       ...List.from(
                         data["expense"]
                             .map(
-                              (i) => ListCard(
-                                image: i["description"],
-                                name: i["description"],
-                                price: (i["amount"].toString().length > 3)
-                                    ? "-₹${formatter?.format(i["amount"])}"
-                                    : "-₹${i["amount"]}",
-                                time: DateFormat.jm().format(
-                                  DateTime.parse(
-                                    i["date"],
-                                  ).toLocal(),
+                              (i) => Slidable(
+                                key: ValueKey(i["id"]),
+                                endActionPane: ActionPane(
+                                  motion: const ScrollMotion(),
+                                  children: [
+                                    SlidableAction(
+                                      onPressed: (context) async {
+                                        setState(() {
+                                          _futureAlbum = deleteAlbum(
+                                            i["id"],
+                                          );
+                                        });
+
+                                        var result = await _futureAlbum;
+                                        print(result);
+
+                                        if (result == true) {
+                                          refreshPull();
+                                        }
+                                      },
+                                      backgroundColor: Colors.red,
+                                      // foregroundColor: Colors.white,
+                                      icon: Icons.delete,
+                                      label: 'Delete',
+                                    ),
+                                  ],
                                 ),
-                                color: 0xffebf9ff,
-                                date: DateFormat.E().format(
-                                  DateTime.parse(
-                                    i["date"],
-                                  ).toLocal(),
+                                child: ListCard(
+                                  image: i["id"],
+                                  name: i["description"],
+                                  price: (i["amount"].toString().length > 3)
+                                      ? "-₹${formatter?.format(i["amount"])}"
+                                      : "-₹${i["amount"]}",
+                                  time: DateFormat.jm().format(
+                                    DateTime.parse(
+                                      i["date"],
+                                    ).toLocal(),
+                                  ),
+                                  color: 0xffebf9ff,
+                                  date: DateFormat.E().format(
+                                    DateTime.parse(
+                                      i["date"],
+                                    ).toLocal(),
+                                  ),
                                 ),
                               ),
                             )
