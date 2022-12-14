@@ -102,8 +102,13 @@ class _StatState extends State<Stat> {
             y: stat[0]["quota"][0],
           ),
         ];
-        avg = formatter!.format(((stat[0]["quota"].reduce((a, b) => a + b)) /
-            stat[0]["quota"].length));
+        String format = formatter!.format(
+            ((stat[0]["quota"].reduce((a, b) => a + b)) /
+                stat[0]["quota"].length));
+        avg = (format.length > 3)
+            ? format
+            : "${((stat[0]["quota"].reduce((a, b) => a + b)) / stat[0]["quota"].length).toStringAsFixed(2)}";
+
         data = jsonDecode(expense.body);
       });
     } else {
