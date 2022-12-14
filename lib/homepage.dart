@@ -191,7 +191,7 @@ class _HomePageState extends State<HomePage> {
                                         });
 
                                         var result = await _futureAlbum;
-                                        print(result);
+                                        // print(result);
 
                                         if (result == true) {
                                           refreshPull();
