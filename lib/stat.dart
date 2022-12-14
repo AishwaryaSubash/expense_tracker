@@ -243,23 +243,28 @@ class _StatState extends State<Stat> {
                       ...List.from(
                         data["expense"]
                             .map(
-                              (i) => ListCard(
-                                image: i["description"],
-                                name: i["description"],
-                                price: (i["amount"].toString().length > 3)
-                                    ? "-₹${formatter?.format(i["amount"])}"
-                                    : "-₹${i["amount"]}",
-                                time: DateFormat.jm().format(
-                                  DateTime.parse(
-                                    i["date"],
-                                  ).toLocal(),
-                                ),
-                                color: 0xffebf9ff,
-                                date: DateFormat.E().format(
-                                  DateTime.parse(
-                                    i["date"],
-                                  ).toLocal(),
-                                ),
+                              (i) => Column(
+                                children: [
+                                  ListCard(
+                                    image: i["description"],
+                                    name: i["description"],
+                                    price: (i["amount"].toString().length > 3)
+                                        ? "-₹${formatter?.format(i["amount"])}"
+                                        : "-₹${i["amount"]}",
+                                    time: DateFormat.jm().format(
+                                      DateTime.parse(
+                                        i["date"],
+                                      ).toLocal(),
+                                    ),
+                                    color: 0xffebf9ff,
+                                    date: DateFormat.E().format(
+                                      DateTime.parse(
+                                        i["date"],
+                                      ).toLocal(),
+                                    ),
+                                  ),
+                                  const Gap(10),
+                                ],
                               ),
                             )
                             .toList()
