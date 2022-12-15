@@ -240,7 +240,7 @@ class _InputFieldsState extends State<InputFields> {
                 ),
               ),
               const SizedBox(
-                height: 50,
+                height: 40,
               ),
             ],
           ),
