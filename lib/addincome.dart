@@ -115,7 +115,6 @@ class _AddIncomeState extends State<AddIncome> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Container(
-                                height: widget.size.height * 0.2,
                                 padding: const EdgeInsets.all(10),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,

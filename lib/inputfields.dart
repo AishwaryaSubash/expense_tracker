@@ -147,20 +147,13 @@ class _InputFieldsState extends State<InputFields> {
                   foregroundColor: Colors.black,
                 ),
                 onPressed: () async {
-                  // ignore: unnecessary_type_check
-                  if (_controller1.text is! String ||
-                      // ignore: unnecessary_type_check
-
-                      _controller1.text.isEmpty ||
-                      _controller2.text.isEmpty ||
-                      int.parse(_controller2.text) <= 0) {
+                  if (_controller1.text.isEmpty || _controller2.text.isEmpty) {
                     showDialog<String>(
                       barrierDismissible: false,
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
                         title: const Text('Error'),
-                        content: const Text(
-                            "Description must be string\nAmount cannot be integer\nValues cannot be null\nAmount cannot less than or equal 0"),
+                        content: const Text("Fields cannot be null"),
                         actions: <Widget>[
                           TextButton(
                             onPressed: () {
@@ -176,7 +169,84 @@ class _InputFieldsState extends State<InputFields> {
                         ],
                       ),
                     );
-                  } else {
+                  } else if (int.tryParse(_controller2.text) == null) {
+                    showDialog<String>(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Error'),
+                        content: const Text("Amount cannot be string"),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              setState(
+                                () {
+                                  isLoading = false;
+                                },
+                              );
+                              Navigator.pop(context, 'OK');
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else if (int.parse(_controller2.text) <= 0) {
+                    showDialog<String>(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Error'),
+                        content: const Text("Amount cannot be negative"),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              setState(
+                                () {
+                                  isLoading = false;
+                                },
+                              );
+                              Navigator.pop(context, 'OK');
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+
+                  // ignore: unnecessary_type_check
+                  // if (_controller1.text is! String ||
+                  //     // ignore: unnecessary_type_check
+
+                  //     _controller1.text.length == 0 ||
+                  //     _controller2.text.length == 0 ||
+                  //     int.tryParse(_controller2.text) == null ||
+                  //     int.parse(_controller2.text) <= 0) {
+                  //   showDialog<String>(
+                  //     barrierDismissible: false,
+                  //     context: context,
+                  //     builder: (BuildContext context) => AlertDialog(
+                  //       title: const Text('Error'),
+                  //       content: const Text(
+                  //           "Description must be string\nAmount cannot be empty\nAmount cannot be less than or equal to 0"),
+                  //       actions: <Widget>[
+                  //         TextButton(
+                  //           onPressed: () {
+                  //             setState(
+                  //               () {
+                  //                 isLoading = false;
+                  //               },
+                  //             );
+                  //             Navigator.pop(context, 'OK');
+                  //           },
+                  //           child: const Text('OK'),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   );
+                  // }
+                  else {
                     setState(
                       () {
                         isLoading = true;
@@ -189,7 +259,6 @@ class _InputFieldsState extends State<InputFields> {
                       },
                     );
                   }
-
                   var result = await _futureAlbum;
 
                   if (result["statusCode"] == 400) {
