@@ -59,281 +59,191 @@ class _InputFieldsState extends State<InputFields> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
+      width: size.width * 0.9,
       child: Column(
         children: [
-          const Gap(20),
-          const Text(
-            "Add Your Expenses",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 17,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const Gap(20),
-          Container(
-            width: size.width * 0.6,
-            child: Column(
-              children: [
-                Row(
-                  children: const [
-                    Text(
-                      "Description",
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                  ],
-                ),
-                TextField(
-                  controller: _controller1,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                  decoration: const InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const Gap(10),
-          Container(
-            width: size.width * 0.6,
-            child: Column(
-              children: [
-                Row(
-                  children: const [
-                    Text(
-                      "Amount",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                  ],
-                ),
-                TextField(
-                  controller: _controller2,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                  decoration: const InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const Gap(20),
-          TextButton.icon(
-            // autofocus: true,
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.all(20),
-              backgroundColor: const Color(0xff1d2a30),
-              foregroundColor: Colors.white,
-            ),
-            onPressed: () async {
-              if (int.tryParse(_controller2.text) == null) {
-                showDialog<String>(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text("Amount cannot be string"),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          setState(
-                            () {
-                              isLoading = false;
-                            },
-                          );
-                          Navigator.pop(context, 'OK');
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                );
-              } else if (_controller1.text.length == 0 ||
-                  _controller2.text.length == 0) {
-                showDialog<String>(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text("Fields cannot be null"),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          setState(
-                            () {
-                              isLoading = false;
-                            },
-                          );
-                          Navigator.pop(context, 'OK');
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                );
-              } else if (int.parse(_controller2.text) <= 0) {
-                showDialog<String>(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text("Amount cannot be negative"),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          setState(
-                            () {
-                              isLoading = false;
-                            },
-                          );
-                          Navigator.pop(context, 'OK');
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                );
-              }
-
-              // ignore: unnecessary_type_check
-              // if (_controller1.text is! String ||
-              //     // ignore: unnecessary_type_check
-
-              //     _controller1.text.length == 0 ||
-              //     _controller2.text.length == 0 ||
-              //     int.tryParse(_controller2.text) == null ||
-              //     int.parse(_controller2.text) <= 0) {
-              //   showDialog<String>(
-              //     barrierDismissible: false,
-              //     context: context,
-              //     builder: (BuildContext context) => AlertDialog(
-              //       title: const Text('Error'),
-              //       content: const Text(
-              //           "Description must be string\nAmount cannot be empty\nAmount cannot be less than or equal to 0"),
-              //       actions: <Widget>[
-              //         TextButton(
-              //           onPressed: () {
-              //             setState(
-              //               () {
-              //                 isLoading = false;
-              //               },
-              //             );
-              //             Navigator.pop(context, 'OK');
-              //           },
-              //           child: const Text('OK'),
-              //         ),
-              //       ],
-              //     ),
-              //   );
-              // }
-              else {
-                setState(
-                  () {
-                    isLoading = true;
-                    int amt = int.parse(_controller2.text);
-
-                    _futureAlbum = createAlbum(
-                      _controller1.text,
-                      int.parse(_controller2.text),
-                    );
-                  },
-                );
-              }
-
-              var result = await _futureAlbum;
-
-              if (result["statusCode"] == 400) {
-                showDialog<String>(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Error'),
-                    content: Text(
-                      result["message"],
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          setState(
-                            () {
-                              isLoading = false;
-                            },
-                          );
-                          Navigator.pop(context, 'OK');
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                );
-              }
-              if (result["statusCode"] == 403) {
-                showDialog<String>(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Error'),
-                    content: Text(
-                      result["message"][0],
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          setState(
-                            () {
-                              isLoading = false;
-                            },
-                          );
-                          Navigator.pop(context, 'OK');
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                );
-              } else {
-                // ignore: use_build_context_synchronously
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomePage(),
-                    ),
-                    (Route route) => false);
-                fieldText.clear();
-              }
-            },
-            label: const Text(
-              'Add Expense',
-              style: TextStyle(
-                fontSize: 17,
+          Column(
+            children: [
+              const SizedBox(
+                height: 20,
               ),
-            ),
-            icon: const Icon(
-              Icons.add,
-            ),
+              Container(
+                width: size.width * 0.8,
+                child: Column(
+                  children: [
+                    Row(
+                      children: const [
+                        Text(
+                          "Description",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ],
+                    ),
+                    TextField(
+                      controller: _controller1,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                      decoration: const InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Container(
+                width: size.width * 0.8,
+                child: Column(
+                  children: [
+                    Row(
+                      children: const [
+                        Text(
+                          "Amount",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ],
+                    ),
+                    TextField(
+                      controller: _controller2,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                      decoration: const InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              TextButton.icon(
+                // autofocus: true,
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(20),
+                  backgroundColor: const Color(0xff1d2a30),
+                  foregroundColor: Colors.black,
+                ),
+                onPressed: () async {
+                  // ignore: unnecessary_type_check
+                  if (_controller1.text is! String ||
+                      // ignore: unnecessary_type_check
+
+                      _controller1.text.isEmpty ||
+                      _controller2.text.isEmpty ||
+                      int.parse(_controller2.text) <= 0) {
+                    showDialog<String>(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Error'),
+                        content: const Text(
+                            "Description must be string\nAmount cannot be integer\nValues cannot be null\nAmount cannot less than or equal 0"),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              setState(
+                                () {
+                                  isLoading = false;
+                                },
+                              );
+                              Navigator.pop(context, 'OK');
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    setState(
+                      () {
+                        isLoading = true;
+                        int amt = int.parse(_controller2.text);
+
+                        _futureAlbum = createAlbum(
+                          _controller1.text,
+                          int.parse(_controller2.text),
+                        );
+                      },
+                    );
+                  }
+
+                  var result = await _futureAlbum;
+
+                  if (result["statusCode"] == 400) {
+                    showDialog<String>(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Error'),
+                        content: Text(
+                          result["message"],
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              setState(
+                                () {
+                                  isLoading = false;
+                                },
+                              );
+                              Navigator.pop(context, 'OK');
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    // ignore: use_build_context_synchronously
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomePage(),
+                        ),
+                        (Route route) => false);
+                    fieldText.clear();
+                  }
+                },
+                label: const Text(
+                  'Add Expense',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                  ),
+                ),
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+            ],
           ),
-          const Gap(50),
         ],
       ),
     );
