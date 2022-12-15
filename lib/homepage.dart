@@ -190,9 +190,15 @@ class _HomePageState extends State<HomePage> {
                                   Slidable(
                                     key: ValueKey(i["id"]),
                                     endActionPane: ActionPane(
+                                      extentRatio: 0.3,
+                                      dragDismissible: true,
                                       motion: const ScrollMotion(),
                                       children: [
                                         SlidableAction(
+                                          borderRadius: BorderRadius.circular(
+                                            10,
+                                          ),
+                                          autoClose: true,
                                           onPressed: (context) async {
                                             setState(() {
                                               _futureAlbum = deleteAlbum(
@@ -209,6 +215,7 @@ class _HomePageState extends State<HomePage> {
                                           },
                                           backgroundColor: Colors.red,
                                           // foregroundColor: Colors.white,
+
                                           icon: Icons.delete,
                                           label: 'Delete',
                                         ),
