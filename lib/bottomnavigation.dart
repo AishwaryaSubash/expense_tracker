@@ -6,9 +6,15 @@ import 'package:flutter_application_1/homepage.dart';
 import 'package:flutter_application_1/profile.dart';
 import 'package:flutter_application_1/stat.dart';
 
-class BottomNavigation extends StatelessWidget {
+class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key, required this.page});
   final String page;
+
+  @override
+  State<BottomNavigation> createState() => _BottomNavigationState();
+}
+
+class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     var brightness = SchedulerBinding.instance.window.platformBrightness;
@@ -24,17 +30,17 @@ class BottomNavigation extends StatelessWidget {
           IconButton(
             icon: Icon(
               Icons.home_rounded,
-              size: (page == "Home") ? 30 : 25,
+              size: (widget.page == "Home") ? 30 : 25,
               color: isDarkMode
-                  ? (page == "Home")
+                  ? (widget.page == "Home")
                       ? const Color(0xFFFF2424)
                       : const Color(0xFF979797)
-                  : (page == "Home")
+                  : (widget.page == "Home")
                       ? const Color(0xFF041a0e)
                       : const Color(0xFF979797),
             ),
             onPressed: () {
-              if (page != "Home") {
+              if (widget.page != "Home") {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
@@ -49,16 +55,16 @@ class BottomNavigation extends StatelessWidget {
             icon: Icon(
               Icons.pie_chart_rounded,
               color: isDarkMode
-                  ? (page == "Stat")
+                  ? (widget.page == "Stat")
                       ? const Color(0xFFFF2424)
                       : const Color(0xFF979797)
-                  : (page == "Stat")
+                  : (widget.page == "Stat")
                       ? const Color(0xFF041a0e)
                       : const Color(0xFF979797),
-              size: (page == "Stat") ? 30 : 25,
+              size: (widget.page == "Stat") ? 30 : 25,
             ),
             onPressed: () {
-              if (page != "Stat") {
+              if (widget.page != "Stat") {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
@@ -73,16 +79,16 @@ class BottomNavigation extends StatelessWidget {
             icon: Icon(
               Icons.wallet_rounded,
               color: isDarkMode
-                  ? (page == "Add")
+                  ? (widget.page == "Add")
                       ? const Color(0xFFFF2424)
                       : const Color(0xFF979797)
-                  : (page == "Add")
+                  : (widget.page == "Add")
                       ? const Color(0xFF041a0e)
                       : const Color(0xFF979797),
-              size: (page == "Add") ? 30 : 25,
+              size: (widget.page == "Add") ? 30 : 25,
             ),
             onPressed: () {
-              if (page != "Add") {
+              if (widget.page != "Add") {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
@@ -97,16 +103,16 @@ class BottomNavigation extends StatelessWidget {
             icon: Icon(
               Icons.settings,
               color: isDarkMode
-                  ? (page == "Profile")
+                  ? (widget.page == "Profile")
                       ? const Color(0xFFFF2424)
                       : const Color(0xFF979797)
-                  : (page == "Profile")
+                  : (widget.page == "Profile")
                       ? const Color(0xFF041a0e)
                       : const Color(0xFF979797),
-              size: (page == "Profile") ? 30 : 25,
+              size: (widget.page == "Profile") ? 30 : 25,
             ),
             onPressed: () {
-              if (page != "Profile") {
+              if (widget.page != "Profile") {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(

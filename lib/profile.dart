@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_application_1/addincome.dart';
 import 'package:flutter_application_1/background.dart';
 import 'package:flutter_application_1/bottomnavigation.dart';
@@ -63,6 +64,8 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -71,7 +74,8 @@ class _ProfileState extends State<Profile> {
         ),
         title: const Text("Profile"),
         centerTitle: true,
-        backgroundColor: const Color(0xff1d2a31),
+        backgroundColor:
+            isDarkMode ? const Color(0xFF2A2C36) : const Color(0xff1d2a31),
         automaticallyImplyLeading: false,
         actions: [
           Padding(
@@ -148,107 +152,114 @@ class _ProfileState extends State<Profile> {
       ),
       body: (data != null)
           ? SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: size.height * 0.27,
-                    child: Stack(
-                      children: <Widget>[
-                        const Background(),
-                        Positioned.fill(
-                          bottom: -size.height * 0.09,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                "https://avatars.dicebear.com/api/bottts/$uuid.png?scale=100",
+              child: Container(
+                decoration: BoxDecoration(
+                    color: isDarkMode ? const Color(0xFF1E1F28) : Colors.white),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: size.height * 0.27,
+                      child: Stack(
+                        children: <Widget>[
+                          const Background(),
+                          Positioned.fill(
+                            bottom: -size.height * 0.09,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                  "https://avatars.dicebear.com/api/bottts/$uuid.png?scale=100",
+                                ),
+                                radius: size.height * 0.08,
+                                backgroundColor: Colors.transparent,
                               ),
-                              radius: size.height * 0.08,
-                              backgroundColor: Colors.transparent,
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Text(
-                    data["username"],
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
+                    Text(
+                      data["username"],
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: isDarkMode ? Colors.white : Colors.black,
+                      ),
                     ),
-                  ),
-                  const Gap(6),
-                  Text(
-                    uuid,
-                    style: const TextStyle(
-                      fontSize: 14,
+                    const Gap(6),
+                    Text(
+                      uuid,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color:
+                            isDarkMode ? const Color(0xFFEF3651) : Colors.black,
+                      ),
                     ),
-                  ),
-                  const Gap(12),
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      children: <Widget>[
-                        const Gap(8),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AddIncome(
-                                    size: size,
-                                    uuid: uuid,
-                                  );
-                                },
-                              );
-                            },
-                            child: const ProfileListing(
-                              icons: Icons.currency_rupee_rounded,
-                              text: "Add Income",
+                    const Gap(12),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        children: <Widget>[
+                          const Gap(8),
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AddIncome(
+                                      size: size,
+                                      uuid: uuid,
+                                    );
+                                  },
+                                );
+                              },
+                              child: const ProfileListing(
+                                icons: Icons.currency_rupee_rounded,
+                                text: "Add Income",
+                              ),
                             ),
                           ),
-                        ),
-                        const Gap(10),
-                        Row(
-                          children: const [
-                            Expanded(
-                              child: Divider(),
-                            ),
-                          ],
-                        ),
-                        const Gap(25),
-                        const ProfileListing(
-                          icons: Icons.person_add,
-                          text: "Invite Friends",
-                        ),
-                        const Gap(25),
-                        const ProfileListing(
-                          icons: Icons.person,
-                          text: "Account info",
-                        ),
-                        const Gap(25),
-                        const ProfileListing(
-                          icons: Icons.mail,
-                          text: "Message center",
-                        ),
-                        const Gap(25),
-                        const ProfileListing(
-                          icons: Icons.security_rounded,
-                          text: "Login and security",
-                        ),
-                        const Gap(25),
-                        const ProfileListing(
-                          icons: Icons.lock,
-                          text: "Data and privacy",
-                        ),
-                        const Gap(25),
-                      ],
-                    ),
-                  )
-                ],
+                          const Gap(10),
+                          Row(
+                            children: const [
+                              Expanded(
+                                child: Divider(),
+                              ),
+                            ],
+                          ),
+                          const Gap(25),
+                          const ProfileListing(
+                            icons: Icons.person_add,
+                            text: "Invite Friends",
+                          ),
+                          const Gap(25),
+                          const ProfileListing(
+                            icons: Icons.person,
+                            text: "Account info",
+                          ),
+                          const Gap(25),
+                          const ProfileListing(
+                            icons: Icons.mail,
+                            text: "Message center",
+                          ),
+                          const Gap(25),
+                          const ProfileListing(
+                            icons: Icons.security_rounded,
+                            text: "Login and security",
+                          ),
+                          const Gap(25),
+                          const ProfileListing(
+                            icons: Icons.lock,
+                            text: "Data and privacy",
+                          ),
+                          const Gap(25),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             )
           : const Padding(

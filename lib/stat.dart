@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -161,6 +162,8 @@ class _StatState extends State<Stat> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
@@ -195,10 +198,10 @@ class _StatState extends State<Stat> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "Expenses Average",
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: isDarkMode ? Colors.white : Colors.grey,
                           fontSize: 17,
                         ),
                       ),
@@ -206,21 +209,24 @@ class _StatState extends State<Stat> {
                         children: [
                           Text(
                             "₹$avg",
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.w600,
+                              color: isDarkMode ? Colors.white : Colors.black,
                             ),
                           ),
                           const Gap(20),
-                          const Icon(
+                          Icon(
                             Icons.arrow_drop_up_rounded,
                             size: 35,
+                            color: isDarkMode ? Colors.white : Colors.black,
                           ),
-                          const Text(
+                          Text(
                             "20%",
                             style: TextStyle(
-                              fontSize: 14,
-                            ),
+                                fontSize: 14,
+                                color:
+                                    isDarkMode ? Colors.white : Colors.black),
                           ),
                         ],
                       ),
@@ -232,11 +238,12 @@ class _StatState extends State<Stat> {
                       const Gap(25),
                       const Toggler(),
                       const Gap(20),
-                      const Text(
+                      Text(
                         "Expenses",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
+                          color: isDarkMode ? Colors.white : Colors.black,
                         ),
                       ),
                       const Gap(20),

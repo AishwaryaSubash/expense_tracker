@@ -32,24 +32,38 @@ class _CardsState extends State<Cards> {
         bottom: 0,
       ),
       decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade600,
-            spreadRadius: 1,
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-        ],
+        boxShadow: isDarkMode
+            ? [
+                BoxShadow(
+                  color: Colors.grey.shade800,
+                  spreadRadius: 1,
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ]
+            : [
+                BoxShadow(
+                  color: Colors.grey.shade600,
+                  spreadRadius: 1,
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
         borderRadius: BorderRadius.circular(20),
-        color: Color(0xEEEF3651),
-        // gradient: const LinearGradient(
-        //   begin: Alignment(1.0, -1.0),
-        //   end: Alignment(-1.0, 1.0),
-        //   colors: [
-        //     Color(0xff1d2a30),
-        //     Color(0xFF1f3038),
-        //   ],
-        // ),
+        // color: Color(0xEEEF3651),
+        gradient: LinearGradient(
+          begin: const Alignment(1.0, -1.0),
+          end: const Alignment(-1.0, 1.0),
+          colors: isDarkMode
+              ? [
+                  const Color(0xEEEF3651),
+                  const Color(0xFFFF2424),
+                ]
+              : [
+                  const Color(0xff1d2a30),
+                  const Color(0xFF1f3038),
+                ],
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

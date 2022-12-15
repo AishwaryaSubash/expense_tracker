@@ -32,7 +32,7 @@ class ListCard extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: isDarkMode ? Colors.grey.shade500 : Colors.white,
+            color: isDarkMode ? const Color(0xFF2A2C36) : Colors.white,
           ),
           child: Row(
             children: <Widget>[
@@ -75,8 +75,10 @@ class ListCard extends StatelessWidget {
                             trimExpandedText: ' ...',
                             delimiter: " ",
                             trimMode: TrimMode.Line,
-                            style: const TextStyle(
-                              color: Color(0xFF041a0e),
+                            style: TextStyle(
+                              color: isDarkMode
+                                  ? Colors.white
+                                  : const Color(0xFF041a0e),
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
                             ),
@@ -86,7 +88,7 @@ class ListCard extends StatelessWidget {
                           time,
                           style: TextStyle(
                             color: isDarkMode
-                                ? Colors.white
+                                ? const Color(0xFFEF3651)
                                 : const Color(0xFF979797),
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
@@ -99,8 +101,10 @@ class ListCard extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           price,
-                          style: const TextStyle(
-                            color: Color(0xFF041a0e),
+                          style: TextStyle(
+                            color: isDarkMode
+                                ? Colors.white
+                                : const Color(0xFF041a0e),
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
@@ -108,8 +112,9 @@ class ListCard extends StatelessWidget {
                         Text(
                           date,
                           style: TextStyle(
-                            color:
-                                isDarkMode ? Colors.white : Color(0xFF979797),
+                            color: isDarkMode
+                                ? const Color(0xFFEF3651)
+                                : const Color(0xFF979797),
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
                           ),

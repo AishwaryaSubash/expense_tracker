@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -47,10 +48,12 @@ class _ChartState extends State<Chart> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return (widget.stat != null)
         ? Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: isDarkMode ? const Color(0xFF2A2C36) : Colors.white,
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
@@ -94,7 +97,9 @@ class _ChartState extends State<Chart> {
                     enableTooltip: true,
                     selectionBehavior: _selectionBehavior,
                     width: 0.5,
-                    color: const Color(0xff1d2a31),
+                    color: isDarkMode
+                        ? const Color(0xFFFF3E3E)
+                        : const Color(0xff1d2a31),
                     isTrackVisible: true,
                     trackColor: const Color(0xffececec),
                   ),
