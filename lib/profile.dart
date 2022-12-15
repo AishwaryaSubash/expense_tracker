@@ -118,13 +118,13 @@ class _ProfileState extends State<Profile> {
 
                               // Navigator.pop(context, 'OK');
                             },
-                            child: const Text('OK'),
+                            child: const Text('Yes'),
                           ),
                           TextButton(
                             onPressed: () {
                               Navigator.pop(context, 'Cancel');
                             },
-                            child: const Text('Cancel'),
+                            child: const Text('No'),
                           ),
                         ],
                       ),
