@@ -68,6 +68,7 @@ class _ProfileState extends State<Profile> {
     bool isDarkMode = brightness == Brightness.dark;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: isDarkMode ? const Color(0xFF1E1F28) : Colors.white,
       appBar: AppBar(
         iconTheme: const IconThemeData(
           color: Color(0xff1d2a31),

@@ -59,7 +59,7 @@ class _AddIncomeState extends State<AddIncome> {
           horizontal: 14,
         ),
         child: SizedBox(
-          height: widget.size.height * 0.2,
+          height: 180,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
