@@ -115,13 +115,12 @@ class _AddIncomeState extends State<AddIncome> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Container(
-                                height: widget.size.height * 0.2,
                                 padding: const EdgeInsets.all(10),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Center(
-                                      child: Text("Should not be empty"),
+                                      child: Text("Enter Valid Income"),
                                     ),
                                     const Gap(30),
                                     MouseRegion(
@@ -176,7 +175,7 @@ class _AddIncomeState extends State<AddIncome> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const Center(
-                                    child: Text("Enter Valid Income"),
+                                    child: Text("Should not be empty"),
                                   ),
                                   const Gap(30),
                                   MouseRegion(
