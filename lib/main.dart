@@ -4,7 +4,7 @@ import 'package:flutter_application_1/homepage.dart';
 import 'package:flutter_application_1/modal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_application_1/themeProvider.dart';
-
+  
 void main() {
   runApp(const MyApp());
   WidgetsFlutterBinding.ensureInitialized();

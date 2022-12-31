@@ -56,8 +56,9 @@ class _CardsState extends State<Cards> {
           end: const Alignment(-1.0, 1.0),
           colors: isDarkMode
               ? [
-                  const Color(0xEEEF3651),
-                  const Color(0xFFFF2424),
+                  const Color(0xffFF8C42),
+                  const Color(0xff5562EB),
+                  // const Color(0xFF228F62)
                 ]
               : [
                   const Color(0xff1d2a30),

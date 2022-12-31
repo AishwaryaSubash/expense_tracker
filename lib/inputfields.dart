@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_application_1/homepage.dart';
 import 'package:http/http.dart' as http;
 import 'package:gap/gap.dart';
@@ -64,6 +65,8 @@ class _InputFieldsState extends State<InputFields> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     Size size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width * 0.9,
@@ -79,11 +82,11 @@ class _InputFieldsState extends State<InputFields> {
                 child: Column(
                   children: [
                     Row(
-                      children: const [
+                      children: [
                         Text(
                           "Description",
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: isDarkMode ? Colors.white : Colors.grey,
                             fontSize: 14,
                           ),
                           textAlign: TextAlign.start,
@@ -94,12 +97,12 @@ class _InputFieldsState extends State<InputFields> {
                       controller: _controller1,
                       style: const TextStyle(
                         fontSize: 16,
-                        color: Colors.black,
+                        color: Color(0xff5562EB),
                       ),
                       decoration: const InputDecoration(
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                            color: Colors.black,
+                            color: Color(0xff5562EB),
                           ),
                         ),
                       ),
@@ -115,12 +118,12 @@ class _InputFieldsState extends State<InputFields> {
                 child: Column(
                   children: [
                     Row(
-                      children: const [
+                      children: [
                         Text(
                           "Amount",
                           style: TextStyle(
                             fontSize: 14,
-                            color: Colors.grey,
+                            color: isDarkMode ? Colors.white : Colors.grey,
                           ),
                           textAlign: TextAlign.start,
                         ),
@@ -130,12 +133,12 @@ class _InputFieldsState extends State<InputFields> {
                       controller: _controller2,
                       style: const TextStyle(
                         fontSize: 16,
-                        color: Colors.black,
+                        color: Color(0xff5562EB),
                       ),
                       decoration: const InputDecoration(
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                            color: Colors.black,
+                            color: Color(0xff5562EB),
                           ),
                         ),
                       ),
@@ -153,7 +156,9 @@ class _InputFieldsState extends State<InputFields> {
                   // autofocus: true,
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(20),
-                    backgroundColor: const Color(0xff1d2a30),
+                    backgroundColor: isDarkMode
+                        ? const Color(0xff5562EB)
+                        : const Color(0xff1d2a30),
                     foregroundColor: Colors.black,
                   ),
                   onPressed: () async {

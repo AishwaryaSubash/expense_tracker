@@ -25,7 +25,7 @@ class _ProfileListingState extends State<ProfileListing> {
         Icon(
           widget.icons,
           size: 35,
-          color: isDarkMode ? const Color(0xFFEF3651) : Colors.black,
+          color: isDarkMode ? const Color(0xff5562EB) : Colors.black,
         ),
         const Gap(30),
         Text(

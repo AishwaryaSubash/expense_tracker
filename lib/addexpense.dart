@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_application_1/bottomnavigation.dart';
 import 'package:flutter_application_1/inputfields.dart';
 import 'package:flutter_application_1/sendtofriend.dart';
@@ -16,6 +17,8 @@ class _AddExpenseState extends State<AddExpense> {
   bool ischange = false;
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: null,
@@ -31,14 +34,16 @@ class _AddExpenseState extends State<AddExpense> {
             height: size.height / 3,
             child: Container(
               padding: const EdgeInsets.all(30),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment(1.0, -1.0),
-                  end: Alignment(-1.0, 1.0),
-                  colors: [
-                    Color(0xff1d2a30),
-                    Color.fromARGB(255, 41, 76, 93),
-                  ],
+                  begin: const Alignment(1.0, -1.0),
+                  end: const Alignment(-1.0, 1.0),
+                  colors: isDarkMode
+                      ? [const Color(0xFF252733), const Color(0xFF252733)]
+                      : [
+                          const Color(0xff1d2a30),
+                          const Color.fromARGB(255, 41, 76, 93),
+                        ],
                 ),
               ),
             ),
@@ -50,9 +55,9 @@ class _AddExpenseState extends State<AddExpense> {
             height: size.height / 1.4,
             child: Container(
               padding: const EdgeInsets.all(25),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: isDarkMode ? const Color(0xFF1E1F28) : Colors.white,
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(30),
                   topRight: Radius.circular(30),
                 ),
@@ -69,8 +74,10 @@ class _AddExpenseState extends State<AddExpense> {
                             children: [
                               Text(
                                 isstate ? 'Add Your Credit' : 'Add Your Debit',
-                                style: const TextStyle(
-                                  color: Colors.black,
+                                style: TextStyle(
+                                  color: isDarkMode
+                                      ? const Color(0xff5562EB)
+                                      : Colors.black,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -97,10 +104,11 @@ class _AddExpenseState extends State<AddExpense> {
                         : InputFields(
                             isstate: isstate,
                           ),
-                    const Text(
+                    Text(
                       'More Options',
                       style: TextStyle(
-                        color: Colors.grey,
+                        color:
+                            isDarkMode ? const Color(0xff5562EB) : Colors.grey,
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
@@ -137,11 +145,15 @@ class _AddExpenseState extends State<AddExpense> {
                                       padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: const Color(0xff152238),
+                                        color: isDarkMode
+                                            ? const Color(0xff5562EB)
+                                            : const Color(0xff152238),
                                       ),
-                                      child: const Icon(
+                                      child: Icon(
                                         Icons.credit_card,
-                                        color: Color(0xff9ed2d1),
+                                        color: isDarkMode
+                                            ? Colors.white
+                                            : const Color(0xff9ed2d1),
                                       ),
                                     ),
                                     const SizedBox(
@@ -152,11 +164,13 @@ class _AddExpenseState extends State<AddExpense> {
                                           CrossAxisAlignment.start,
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: const [
+                                      children: [
                                         Text(
                                           'Add Credit',
                                           style: TextStyle(
-                                            color: Colors.grey,
+                                            color: isDarkMode
+                                                ? Colors.white
+                                                : Colors.grey,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -193,11 +207,15 @@ class _AddExpenseState extends State<AddExpense> {
                                       padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: const Color(0xff203354),
+                                        color: isDarkMode
+                                            ? const Color(0xff5562EB)
+                                            : const Color(0xff203354),
                                       ),
-                                      child: const Icon(
+                                      child: Icon(
                                         Icons.people,
-                                        color: Color(0xffe6c797),
+                                        color: isDarkMode
+                                            ? Colors.white
+                                            : const Color(0xffe6c797),
                                       ),
                                     ),
                                     const SizedBox(
@@ -208,11 +226,13 @@ class _AddExpenseState extends State<AddExpense> {
                                           CrossAxisAlignment.start,
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: const [
+                                      children: [
                                         Text(
                                           'Send To a Friend',
                                           style: TextStyle(
-                                            color: Colors.grey,
+                                            color: isDarkMode
+                                                ? Colors.white
+                                                : Colors.grey,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -243,11 +263,15 @@ class _AddExpenseState extends State<AddExpense> {
                                     padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      color: const Color(0xff703770),
+                                      color: isDarkMode
+                                          ? const Color(0xff5562EB)
+                                          : const Color(0xff703770),
                                     ),
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.more,
-                                      color: Color(0xff9ed2d1),
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : const Color(0xff9ed2d1),
                                     ),
                                   ),
                                   const SizedBox(
@@ -257,11 +281,13 @@ class _AddExpenseState extends State<AddExpense> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Text(
                                         'More Options',
                                         style: TextStyle(
-                                          color: Colors.grey,
+                                          color: isDarkMode
+                                              ? Colors.white
+                                              : Colors.grey,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),

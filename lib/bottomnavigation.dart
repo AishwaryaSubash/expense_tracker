@@ -33,7 +33,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               size: (widget.page == "Home") ? 30 : 25,
               color: isDarkMode
                   ? (widget.page == "Home")
-                      ? const Color(0xFFFF2424)
+                      ? const Color(0xff5562EB)
                       : const Color(0xFF979797)
                   : (widget.page == "Home")
                       ? const Color(0xFF041a0e)
@@ -56,7 +56,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               Icons.pie_chart_rounded,
               color: isDarkMode
                   ? (widget.page == "Stat")
-                      ? const Color(0xFFFF2424)
+                      ? const Color(0xff5562EB)
                       : const Color(0xFF979797)
                   : (widget.page == "Stat")
                       ? const Color(0xFF041a0e)
@@ -80,7 +80,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               Icons.wallet_rounded,
               color: isDarkMode
                   ? (widget.page == "Add")
-                      ? const Color(0xFFFF2424)
+                      ? const Color(0xff5562EB)
                       : const Color(0xFF979797)
                   : (widget.page == "Add")
                       ? const Color(0xFF041a0e)
@@ -104,7 +104,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               Icons.settings,
               color: isDarkMode
                   ? (widget.page == "Profile")
-                      ? const Color(0xFFFF2424)
+                      ? const Color(0xff5562EB)
                       : const Color(0xFF979797)
                   : (widget.page == "Profile")
                       ? const Color(0xFF041a0e)

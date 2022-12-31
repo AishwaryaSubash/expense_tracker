@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var brightness = SchedulerBinding.instance.window.platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
-    print(isDarkMode);
+    // print(isDarkMode);
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                         "All Transactions",
                         style: TextStyle(
                           color: isDarkMode
-                              ? Colors.white70
+                              ? const Color(0xff5562EB)
                               : const Color(0xFF041a0e),
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -252,11 +252,13 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ))
-          : const Padding(
-              padding: EdgeInsets.all(20.0),
+          : Padding(
+              padding: const EdgeInsets.all(20.0),
               child: SpinKitCircle(
                 size: 100,
-                color: Color(0xff1d2a31),
+                color: isDarkMode
+                    ? const Color(0xff5562EB)
+                    : const Color(0xff1d2a31),
               ),
             ),
     );

@@ -98,7 +98,7 @@ class _ChartState extends State<Chart> {
                     selectionBehavior: _selectionBehavior,
                     width: 0.5,
                     color: isDarkMode
-                        ? const Color(0xFFFF3E3E)
+                        ? const Color(0xff5562EB)
                         : const Color(0xff1d2a31),
                     isTrackVisible: true,
                     trackColor: const Color(0xffececec),

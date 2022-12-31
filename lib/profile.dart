@@ -193,7 +193,7 @@ class _ProfileState extends State<Profile> {
                       style: TextStyle(
                         fontSize: 14,
                         color:
-                            isDarkMode ? const Color(0xFFEF3651) : Colors.black,
+                            isDarkMode ? const Color(0xff5562EB) : Colors.black,
                       ),
                     ),
                     const Gap(12),
@@ -263,11 +263,11 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
             )
-          : const Padding(
-              padding: EdgeInsets.all(20.0),
+          :  Padding(
+              padding: const EdgeInsets.all(20.0),
               child: SpinKitCircle(
                 size: 100,
-                color: Color(0xff1d2a31),
+                color: isDarkMode? const Color(0xff5562EB): const Color(0xff1d2a31),
               ),
             ),
     );

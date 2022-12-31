@@ -88,7 +88,7 @@ class ListCard extends StatelessWidget {
                           time,
                           style: TextStyle(
                             color: isDarkMode
-                                ? const Color(0xFFEF3651)
+                                ? const Color(0xff5562EB)
                                 : const Color(0xFF979797),
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
@@ -113,7 +113,7 @@ class ListCard extends StatelessWidget {
                           date,
                           style: TextStyle(
                             color: isDarkMode
-                                ? const Color(0xFFEF3651)
+                                ? const Color(0xff5562EB)
                                 : const Color(0xFF979797),
                             fontWeight: FontWeight.w500,
                             fontSize: 14,

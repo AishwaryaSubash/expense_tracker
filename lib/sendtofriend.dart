@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:gap/gap.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -60,17 +61,19 @@ class _SendToFriendState extends State<SendToFriend> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 10.0),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
             child: Text(
               "Enter friend's name",
               style: TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
+                color: isDarkMode ? Colors.white : Colors.grey,
+                fontSize: 18,
               ),
               textAlign: TextAlign.start,
             ),
@@ -79,23 +82,23 @@ class _SendToFriendState extends State<SendToFriend> {
             controller: _controller1,
             style: const TextStyle(
               fontSize: 16,
-              color: Colors.black,
+              color: Color(0xff5562EB),
             ),
             decoration: const InputDecoration(
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
-                  color: Colors.black,
+                  color: Color(0xff5562EB),
                 ),
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 10.0, top: 20),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0, top: 20),
             child: Text(
               "Description",
               style: TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
+                color: isDarkMode ? Colors.white : Colors.grey,
+                fontSize: 18,
               ),
               textAlign: TextAlign.start,
             ),
@@ -104,23 +107,23 @@ class _SendToFriendState extends State<SendToFriend> {
             controller: _controller2,
             style: const TextStyle(
               fontSize: 16,
-              color: Colors.black,
+              color: Color(0xff5562EB),
             ),
             decoration: const InputDecoration(
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
-                  color: Colors.black,
+                  color: Color(0xff5562EB),
                 ),
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 10.0, top: 20),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0, top: 20),
             child: Text(
               "Enter Amount",
               style: TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
+                color: isDarkMode ? Colors.white : Colors.grey,
+                fontSize: 18,
               ),
               textAlign: TextAlign.start,
             ),
@@ -129,12 +132,12 @@ class _SendToFriendState extends State<SendToFriend> {
             controller: _controller3,
             style: const TextStyle(
               fontSize: 16,
-              color: Colors.black,
+              color: Color(0xff5562EB),
             ),
             decoration: const InputDecoration(
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
-                  color: Colors.black,
+                  color: Color(0xff5562EB),
                 ),
               ),
             ),
@@ -240,7 +243,9 @@ class _SendToFriendState extends State<SendToFriend> {
               },
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.all(20),
-                backgroundColor: const Color(0xff1d2a30),
+                backgroundColor: isDarkMode
+                    ? const Color(0xff5562EB)
+                    : const Color(0xff1d2a30),
                 foregroundColor: Colors.black,
               ),
               label: const Text(

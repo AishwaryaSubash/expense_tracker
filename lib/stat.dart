@@ -212,7 +212,9 @@ class _StatState extends State<Stat> {
                             style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.w600,
-                              color: isDarkMode ? Colors.white : Colors.black,
+                              color: isDarkMode
+                                  ? const Color(0xff5562EB)
+                                  : Colors.black,
                             ),
                           ),
                           const Gap(20),
@@ -243,7 +245,9 @@ class _StatState extends State<Stat> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: isDarkMode ? Colors.white : Colors.black,
+                          color: isDarkMode
+                              ? const Color(0xff5562EB)
+                              : Colors.black,
                         ),
                       ),
                       const Gap(20),
@@ -283,11 +287,11 @@ class _StatState extends State<Stat> {
                 ),
               ),
             )
-          : const Padding(
-              padding: EdgeInsets.all(20.0),
+          :  Padding(
+              padding: const EdgeInsets.all(20.0),
               child: SpinKitCircle(
                 size: 100,
-                color: Color(0xff1d2a31),
+                color: isDarkMode? const Color(0xff5562EB): const Color(0xff1d2a31),
               ),
             ),
     );
