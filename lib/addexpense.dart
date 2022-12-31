@@ -1,11 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/background.dart';
 import 'package:flutter_application_1/bottomnavigation.dart';
 import 'package:flutter_application_1/inputfields.dart';
+import 'package:flutter_application_1/sendtofriend.dart';
 
-class AddExpense extends StatelessWidget {
+class AddExpense extends StatefulWidget {
   const AddExpense({super.key});
 
+  @override
+  State<AddExpense> createState() => _AddExpenseState();
+}
+
+class _AddExpenseState extends State<AddExpense> {
+  bool isstate = false;
+  bool ischange = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -53,19 +61,43 @@ class AddExpense extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Add Your Expense',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    ischange
+                        ? Row(
+                            children: const [Text(" ")],
+                          )
+                        : Row(
+                            children: [
+                              Text(
+                                isstate ? 'Add Your Credit' : 'Add Your Debit',
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const Spacer(),
+                              CupertinoSwitch(
+                                value: isstate,
+                                onChanged: (value) {
+                                  setState(
+                                    () {
+                                      isstate = value;
+                                    },
+                                  );
+                                },
+                                trackColor: CupertinoColors.activeBlue,
+                              ),
+                            ],
+                          ),
                     const SizedBox(
                       height: 10,
                     ),
-                    const InputFields(),
-                    Text(
+                    ischange
+                        ? const SendToFriend()
+                        : InputFields(
+                            isstate: isstate,
+                          ),
+                    const Text(
                       'More Options',
                       style: TextStyle(
                         color: Colors.grey,
@@ -73,64 +105,129 @@ class AddExpense extends StatelessWidget {
                         fontSize: 18,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    Container(
+                    SizedBox(
                       height: 70,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: [
-                          AspectRatio(
-                            aspectRatio: 3.2 / 1,
-                            child: Container(
-                              padding: EdgeInsets.all(13),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.blueGrey,
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isstate = true;
+                                ischange = false;
+                              });
+                            },
+                            child: AspectRatio(
+                              aspectRatio: 3.2 / 1,
+                              child: Container(
+                                padding: const EdgeInsets.all(13),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.blueGrey,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
                                 ),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 42,
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Color(0xff152238),
-                                    ),
-                                    child: Icon(
-                                      Icons.credit_card,
-                                      color: Color(0xff9ed2d1),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Add Credit',
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 42,
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: const Color(0xff152238),
                                       ),
-                                    ],
+                                      child: const Icon(
+                                        Icons.credit_card,
+                                        color: Color(0xff9ed2d1),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Text(
+                                          'Add Credit',
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                ischange = true;
+                              });
+                            },
+                            child: AspectRatio(
+                              aspectRatio: 3.2 / 1,
+                              child: Container(
+                                padding: const EdgeInsets.all(13),
+                                margin: const EdgeInsets.only(
+                                  left: 20,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.blueGrey,
                                   ),
-                                ],
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 42,
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: const Color(0xff203354),
+                                      ),
+                                      child: const Icon(
+                                        Icons.people,
+                                        color: Color(0xffe6c797),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Text(
+                                          'Send To a Friend',
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                           AspectRatio(
                             aspectRatio: 3.2 / 1,
                             child: Container(
-                              padding: EdgeInsets.all(13),
-                              margin: EdgeInsets.only(
+                              padding: const EdgeInsets.all(13),
+                              margin: const EdgeInsets.only(
                                 left: 20,
                               ),
                               decoration: BoxDecoration(
@@ -143,72 +240,24 @@ class AddExpense extends StatelessWidget {
                                 children: [
                                   Container(
                                     width: 42,
-                                    padding: EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      color: Color(0xff203354),
+                                      color: const Color(0xff703770),
                                     ),
-                                    child: Icon(
-                                      Icons.people,
-                                      color: Color(0xffe6c797),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Send To a Friend',
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          AspectRatio(
-                            aspectRatio: 3.2 / 1,
-                            child: Container(
-                              padding: EdgeInsets.all(13),
-                              margin: EdgeInsets.only(
-                                left: 20,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.blueGrey,
-                                ),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 42,
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Color(0xff703770),
-                                    ),
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.more,
                                       color: Color(0xff9ed2d1),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                    children: const [
                                       Text(
                                         'More Options',
                                         style: TextStyle(
@@ -225,7 +274,7 @@ class AddExpense extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                   ],

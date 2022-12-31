@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_1/homepage.dart';
 import 'package:http/http.dart' as http;
 import 'package:gap/gap.dart';
@@ -14,7 +15,7 @@ getStringValuesSF() async {
   return stringValue;
 }
 
-Future<dynamic> createAlbum(String description, int amount) async {
+Future<dynamic> createAlbum(String description, int amount, bool isstate) async {
   String id = await getStringValuesSF();
   final response = await http.post(
     Uri.parse('https://expense-backend.vercel.app/expense/addExpense'),
@@ -22,7 +23,7 @@ Future<dynamic> createAlbum(String description, int amount) async {
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(
-        {'userId': id, 'amount': amount, 'description': description}),
+        {'userId': id, 'amount': amount, 'description': description, 'debit':!isstate}),
   );
 
   var result = jsonDecode(response.body);
@@ -35,7 +36,8 @@ Future<dynamic> createAlbum(String description, int amount) async {
 }
 
 class InputFields extends StatefulWidget {
-  const InputFields({super.key});
+  const InputFields({super.key, required this.isstate});
+  final bool isstate;
 
   @override
   State<InputFields> createState() => _InputFieldsState();
@@ -58,7 +60,7 @@ class _InputFieldsState extends State<InputFields> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       width: size.width * 0.9,
       child: Column(
         children: [
@@ -67,7 +69,7 @@ class _InputFieldsState extends State<InputFields> {
               const SizedBox(
                 height: 20,
               ),
-              Container(
+              SizedBox(
                 width: size.width * 0.8,
                 child: Column(
                   children: [
@@ -103,7 +105,7 @@ class _InputFieldsState extends State<InputFields> {
               const SizedBox(
                 height: 30,
               ),
-              Container(
+              SizedBox(
                 width: size.width * 0.8,
                 child: Column(
                   children: [
@@ -139,173 +141,146 @@ class _InputFieldsState extends State<InputFields> {
               const SizedBox(
                 height: 40,
               ),
-              TextButton.icon(
-                // autofocus: true,
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(20),
-                  backgroundColor: const Color(0xff1d2a30),
-                  foregroundColor: Colors.black,
-                ),
-                onPressed: () async {
-                  if (_controller1.text.isEmpty || _controller2.text.isEmpty) {
-                    showDialog<String>(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: const Text('Error'),
-                        content: const Text("Fields cannot be null"),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              setState(
-                                () {
-                                  isLoading = false;
-                                },
-                              );
-                              Navigator.pop(context, 'OK');
-                            },
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else if (int.tryParse(_controller2.text) == null) {
-                    showDialog<String>(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: const Text('Error'),
-                        content: const Text("Amount cannot be string"),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              setState(
-                                () {
-                                  isLoading = false;
-                                },
-                              );
-                              Navigator.pop(context, 'OK');
-                            },
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else if (int.parse(_controller2.text) <= 0) {
-                    showDialog<String>(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: const Text('Error'),
-                        content: const Text("Amount cannot be negative"),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              setState(
-                                () {
-                                  isLoading = false;
-                                },
-                              );
-                              Navigator.pop(context, 'OK');
-                            },
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-
-                  // ignore: unnecessary_type_check
-                  // if (_controller1.text is! String ||
-                  //     // ignore: unnecessary_type_check
-
-                  //     _controller1.text.length == 0 ||
-                  //     _controller2.text.length == 0 ||
-                  //     int.tryParse(_controller2.text) == null ||
-                  //     int.parse(_controller2.text) <= 0) {
-                  //   showDialog<String>(
-                  //     barrierDismissible: false,
-                  //     context: context,
-                  //     builder: (BuildContext context) => AlertDialog(
-                  //       title: const Text('Error'),
-                  //       content: const Text(
-                  //           "Description must be string\nAmount cannot be empty\nAmount cannot be less than or equal to 0"),
-                  //       actions: <Widget>[
-                  //         TextButton(
-                  //           onPressed: () {
-                  //             setState(
-                  //               () {
-                  //                 isLoading = false;
-                  //               },
-                  //             );
-                  //             Navigator.pop(context, 'OK');
-                  //           },
-                  //           child: const Text('OK'),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   );
-                  // }
-                  else {
-                    setState(
-                      () {
-                        isLoading = true;
-                        int amt = int.parse(_controller2.text);
-
-                        _futureAlbum = createAlbum(
-                          _controller1.text,
-                          int.parse(_controller2.text),
-                        );
-                      },
-                    );
-                  }
-                  var result = await _futureAlbum;
-
-                  if (result["statusCode"] == 400) {
-                    showDialog<String>(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: const Text('Error'),
-                        content: Text(
-                          result["message"],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              setState(
-                                () {
-                                  isLoading = false;
-                                },
-                              );
-                              Navigator.pop(context, 'OK');
-                            },
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    // ignore: use_build_context_synchronously
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomePage(),
-                        ),
-                        (Route route) => false);
-                    fieldText.clear();
-                  }
-                },
-                label: const Text(
-                  'Add Expense',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 17,
+              AnimatedContainer(
+                width: widget.isstate ? 180 : 200,
+                duration: const Duration(milliseconds: 200),
+                child: TextButton.icon(
+                  // autofocus: true,
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(20),
+                    backgroundColor: const Color(0xff1d2a30),
+                    foregroundColor: Colors.black,
                   ),
-                ),
-                icon: const Icon(
-                  Icons.add,
-                  color: Colors.white,
+                  onPressed: () async {
+                    if (_controller1.text.isEmpty ||
+                        _controller2.text.isEmpty) {
+                      showDialog<String>(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Error'),
+                          content: const Text("Fields cannot be null"),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    isLoading = false;
+                                  },
+                                );
+                                Navigator.pop(context, 'OK');
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else if (int.tryParse(_controller2.text) == null) {
+                      showDialog<String>(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Error'),
+                          content: const Text("Amount cannot be string"),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    isLoading = false;
+                                  },
+                                );
+                                Navigator.pop(context, 'OK');
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else if (int.parse(_controller2.text) <= 0) {
+                      showDialog<String>(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Error'),
+                          content: const Text("Amount cannot be negative"),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    isLoading = false;
+                                  },
+                                );
+                                Navigator.pop(context, 'OK');
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      setState(
+                        () {
+                          isLoading = true;
+                          int amt = int.parse(_controller2.text);
+
+                          _futureAlbum = createAlbum(
+                            _controller1.text,
+                            int.parse(_controller2.text),
+                            widget.isstate
+                          );
+                        },
+                      );
+                    }
+                    var result = await _futureAlbum;
+
+                    if (result["statusCode"] == 400) {
+                      showDialog<String>(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Error'),
+                          content: Text(
+                            result["message"],
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    isLoading = false;
+                                  },
+                                );
+                                Navigator.pop(context, 'OK');
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      // ignore: use_build_context_synchronously
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomePage(),
+                          ),
+                          (Route route) => false);
+                      fieldText.clear();
+                    }
+                  },
+                  label: Text(
+                    widget.isstate ? 'Add Credit' : 'Add Debit',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
+                    ),
+                  ),
+                  icon: Icon(
+                    widget.isstate ? Icons.add : Icons.currency_rupee,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               const SizedBox(
