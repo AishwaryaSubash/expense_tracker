@@ -15,15 +15,20 @@ getStringValuesSF() async {
   return stringValue;
 }
 
-Future<dynamic> createAlbum(String description, int amount, bool isstate) async {
+Future<dynamic> createAlbum(
+    String description, int amount, bool isstate) async {
   String id = await getStringValuesSF();
   final response = await http.post(
     Uri.parse('https://expense-backend.vercel.app/expense/addExpense'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: jsonEncode(
-        {'userId': id, 'amount': amount, 'description': description, 'debit':!isstate}),
+    body: jsonEncode({
+      'userId': id,
+      'amount': amount,
+      'description': description,
+      'debit': !isstate
+    }),
   );
 
   var result = jsonDecode(response.body);
@@ -225,17 +230,14 @@ class _InputFieldsState extends State<InputFields> {
                           isLoading = true;
                           int amt = int.parse(_controller2.text);
 
-                          _futureAlbum = createAlbum(
-                            _controller1.text,
-                            int.parse(_controller2.text),
-                            widget.isstate
-                          );
+                          _futureAlbum = createAlbum(_controller1.text,
+                              int.parse(_controller2.text), widget.isstate);
                         },
                       );
                     }
                     var result = await _futureAlbum;
 
-                    if (result["statusCode"] == 400) {
+                    if (result["statusCode"] == 403) {
                       showDialog<String>(
                         barrierDismissible: false,
                         context: context,
