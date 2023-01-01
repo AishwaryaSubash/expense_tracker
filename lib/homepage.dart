@@ -41,7 +41,6 @@ class _HomePageState extends State<HomePage> {
         data = jsonDecode(response.body);
         uuid = res;
       });
-      print(jsonDecode(response.body));
     } else {
       throw Exception('Failed to load statistics');
     }
@@ -216,8 +215,8 @@ class _HomePageState extends State<HomePage> {
                                       image: i["id"],
                                       name: i["description"],
                                       price: (i["amount"].toString().length > 3)
-                                          ? "-₹${formatter?.format(i["amount"])}"
-                                          : "-₹${i["amount"]}",
+                                          ? "${(i["debit"]) ? "-" : "+"}₹${formatter?.format(i["amount"])}"
+                                          : "${(i["debit"]) ? "-" : "+"}₹${i["amount"]}",
                                       time: DateFormat.jm().format(
                                         DateTime.parse(
                                           i["date"],
@@ -242,7 +241,8 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-              ))
+              ),
+            )
           : Padding(
               padding: const EdgeInsets.all(20.0),
               child: SpinKitCircle(

@@ -214,32 +214,15 @@ class _StatState extends State<Stat> {
                           fontSize: 17,
                         ),
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            "₹$avg",
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w600,
-                              color: isDarkMode
-                                  ? const Color(0xff5562EB)
-                                  : Colors.black,
-                            ),
-                          ),
-                          const Gap(20),
-                          Icon(
-                            Icons.arrow_drop_up_rounded,
-                            size: 35,
-                            color: isDarkMode ? Colors.white : Colors.black,
-                          ),
-                          Text(
-                            "20%",
-                            style: TextStyle(
-                                fontSize: 14,
-                                color:
-                                    isDarkMode ? Colors.white : Colors.black),
-                          ),
-                        ],
+                      Text(
+                        "₹$avg",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600,
+                          color: isDarkMode
+                              ? const Color(0xff5562EB)
+                              : Colors.black,
+                        ),
                       ),
                       const Gap(20),
                       Chart(
