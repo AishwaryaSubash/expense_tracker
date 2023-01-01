@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         data = jsonDecode(response.body);
         uuid = res;
       });
-
+      print(jsonDecode(response.body));
       //print(data["username"]);
     } else {
       throw Exception('Failed to load statistics');

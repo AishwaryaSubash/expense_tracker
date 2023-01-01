@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_application_1/bottomnavigation.dart';
 import 'package:flutter_application_1/inputfields.dart';
 import 'package:flutter_application_1/sendtofriend.dart';
+import 'package:gap/gap.dart';
 
 class AddExpense extends StatefulWidget {
   const AddExpense({super.key});
@@ -68,7 +69,18 @@ class _AddExpenseState extends State<AddExpense> {
                   children: [
                     ischange
                         ? Row(
-                            children: const [Text(" ")],
+                            children: [
+                              Text(
+                                "Send to friend",
+                                style: TextStyle(
+                                  color: isDarkMode
+                                      ? const Color(0xff5562EB)
+                                      : Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           )
                         : Row(
                             children: [
@@ -100,7 +112,12 @@ class _AddExpenseState extends State<AddExpense> {
                       height: 10,
                     ),
                     ischange
-                        ? const SendToFriend()
+                        ? Column(
+                            children: const [
+                              Gap(10),
+                              SendToFriend(),
+                            ],
+                          )
                         : InputFields(
                             isstate: isstate,
                           ),
@@ -188,11 +205,11 @@ class _AddExpenseState extends State<AddExpense> {
                               });
                             },
                             child: AspectRatio(
-                              aspectRatio: 3.2 / 1,
+                              aspectRatio: 3.5 / 1,
                               child: Container(
                                 padding: const EdgeInsets.all(13),
                                 margin: const EdgeInsets.only(
-                                  left: 20,
+                                  left: 26,
                                 ),
                                 decoration: BoxDecoration(
                                   border: Border.all(

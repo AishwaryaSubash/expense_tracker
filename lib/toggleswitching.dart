@@ -3,8 +3,8 @@ import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/scheduler.dart';
 
 class Toggler extends StatefulWidget {
-  const Toggler({super.key});
-
+  const Toggler({super.key, required this.setShow});
+  final Function setShow;
   @override
   State<Toggler> createState() => _TogglerState();
 }
@@ -27,16 +27,19 @@ class _TogglerState extends State<Toggler> {
         borderWidth: 3,
         colorBuilder: (i) =>
             isDarkMode ? const Color(0xff2A2C36) : const Color(0xff1d2a31),
-        onChanged: (i) => setState(() => value = i),
+        onChanged: (i) {
+          setState(() => value = i);
+          widget.setShow(value);
+        },
         iconBuilder: (value, size) {
           if (value == 1) {
             return const Icon(
-              Icons.ac_unit_outlined,
+              Icons.calendar_month,
               color: Colors.amber,
             );
           } else {
             return const Icon(
-              Icons.access_alarms_rounded,
+              Icons.view_week_outlined,
               color: Colors.cyan,
             );
           }

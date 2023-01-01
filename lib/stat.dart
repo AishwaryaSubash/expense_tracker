@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_application_1/monthly.dart';
+import 'package:flutter_application_1/weekly.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -72,7 +74,6 @@ class _StatState extends State<Stat> {
     if (response.statusCode == 200 && expense.statusCode == 200) {
       setState(() {
         stat = jsonDecode(response.body);
-
         chartData = <ChartData>[
           ChartData(
             x: 'Mon',
@@ -157,7 +158,15 @@ class _StatState extends State<Stat> {
         y: 0,
       ),
     ];
+
     await fetchAlbum();
+  }
+
+  int show = 0;
+  void setShow(int value) {
+    setState(() {
+      show = value;
+    });
   }
 
   @override
@@ -238,7 +247,11 @@ class _StatState extends State<Stat> {
                         stat: stat,
                       ),
                       const Gap(25),
-                      const Toggler(),
+                      Toggler(
+                        setShow: setShow,
+                      ),
+                      const Gap(20),
+                      (show == 0) ? const WeeklyChat() : const MonthlyChart(),
                       const Gap(20),
                       Text(
                         "Expenses",
@@ -287,11 +300,13 @@ class _StatState extends State<Stat> {
                 ),
               ),
             )
-          :  Padding(
+          : Padding(
               padding: const EdgeInsets.all(20.0),
               child: SpinKitCircle(
                 size: 100,
-                color: isDarkMode? const Color(0xff5562EB): const Color(0xff1d2a31),
+                color: isDarkMode
+                    ? const Color(0xff5562EB)
+                    : const Color(0xff1d2a31),
               ),
             ),
     );

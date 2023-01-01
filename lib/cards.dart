@@ -69,39 +69,11 @@ class _CardsState extends State<Cards> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Text(
-                "Total Balance",
-                style:
-                    TextStyle(color: isDarkMode ? Colors.white : Colors.grey),
-              ),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.only(right: 25),
-                child: Row(
-                  children: const [
-                    Icon(
-                      Icons.circle,
-                      size: 8,
-                      color: Colors.white,
-                    ),
-                    Gap(5),
-                    Icon(
-                      Icons.circle,
-                      color: Colors.white,
-                      size: 8,
-                    ),
-                    Gap(5),
-                    Icon(
-                      Icons.circle,
-                      color: Colors.white,
-                      size: 8,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          Text(
+            "Total Balance",
+            style: TextStyle(
+              color: isDarkMode ? Colors.white : Colors.grey,
+            ),
           ),
           const Gap(10),
           Text(
