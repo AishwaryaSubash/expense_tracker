@@ -63,8 +63,9 @@ class _StatState extends State<Stat> {
       y: 0,
     ),
   ];
+  String res = "";
   Future<dynamic> fetchAlbum() async {
-    var res = await getStringValuesSF();
+    res = await getStringValuesSF();
     final response = await http.get(
       Uri.parse("https://expense-backend.vercel.app/stats/$res"),
     );
@@ -234,7 +235,7 @@ class _StatState extends State<Stat> {
                         setShow: setShow,
                       ),
                       const Gap(20),
-                      (show == 0) ? const WeeklyChat() : const MonthlyChart(),
+                      (show == 0) ?  WeeklyChat(userId:res) : const MonthlyChart(),
                       const Gap(20),
                       Text(
                         "Expenses",
