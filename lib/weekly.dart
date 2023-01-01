@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -96,6 +97,8 @@ class _WeeklyChatState extends State<WeeklyChat> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     Size size = MediaQuery.of(context).size;
 
     return (stat != null)
@@ -112,6 +115,13 @@ class _WeeklyChatState extends State<WeeklyChat> {
                       tooltipBehavior: _tooltipBehavior,
                       legend: Legend(
                         isVisible: true,
+                        textStyle: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: isDarkMode
+                              ? const Color(0xff5562EB)
+                              : Colors.black,
+                        ),
                         position: (size.width > size.height)
                             ? LegendPosition.right
                             : LegendPosition.bottom,
@@ -122,11 +132,14 @@ class _WeeklyChatState extends State<WeeklyChat> {
                       ),
                       annotations: <CircularChartAnnotation>[
                         CircularChartAnnotation(
-                          widget: const Center(
+                          widget: Center(
                             child: Text(
                               'Weekly',
                               style: TextStyle(
-                                color: Color.fromRGBO(0, 0, 0, 0.5),
+                                fontWeight: FontWeight.w600,
+                                color: isDarkMode
+                                    ? Colors.white
+                                    : const Color.fromRGBO(0, 0, 0, 0.5),
                                 fontSize: 25,
                               ),
                               textAlign: TextAlign.center,
