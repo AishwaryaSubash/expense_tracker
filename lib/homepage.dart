@@ -42,7 +42,6 @@ class _HomePageState extends State<HomePage> {
         uuid = res;
       });
       print(jsonDecode(response.body));
-      //print(data["username"]);
     } else {
       throw Exception('Failed to load statistics');
     }
@@ -57,16 +56,8 @@ class _HomePageState extends State<HomePage> {
     );
 
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON. After deleting,
-      // you'll get an empty JSON `{}` response.
-      // Don't return `null`, otherwise `snapshot.hasData`
-      // will always return false on `FutureBuilder`.
-      // print(response.body);
       return true;
     } else {
-      // If the server did not return a "200 OK response",
-      // then throw an exception.
       return false;
     }
   }

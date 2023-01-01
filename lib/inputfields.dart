@@ -249,7 +249,7 @@ class _InputFieldsState extends State<InputFields> {
                         builder: (BuildContext context) => AlertDialog(
                           title: const Text('Error'),
                           content: Text(
-                            result["message"],
+                            result["message"][0],
                           ),
                           actions: <Widget>[
                             TextButton(
