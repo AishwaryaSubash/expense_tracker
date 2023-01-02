@@ -135,8 +135,9 @@ class _HomePageState extends State<HomePage> {
         ],
         // backgroundColor: const Color(0xFFf6f6f6),
       ),
-      bottomNavigationBar: const BottomNavigation(
+      bottomNavigationBar:  BottomNavigation(
         page: "Home",
+        dark: isDarkMode,
       ),
       body: (data != null)
           ? RefreshIndicator(

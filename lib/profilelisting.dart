@@ -7,9 +7,11 @@ class ProfileListing extends StatefulWidget {
     super.key,
     required this.icons,
     required this.text,
+    required this.dark,
   });
   final IconData icons;
   final String text;
+  final bool dark;
 
   @override
   State<ProfileListing> createState() => _ProfileListingState();
@@ -18,21 +20,21 @@ class ProfileListing extends StatefulWidget {
 class _ProfileListingState extends State<ProfileListing> {
   @override
   Widget build(BuildContext context) {
-    var brightness = SchedulerBinding.instance.window.platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
+    // var brightness = SchedulerBinding.instance.window.platformBrightness;
+    // bool isDarkMode = brightness == Brightness.dark;
     return Row(
       children: <Widget>[
         Icon(
           widget.icons,
           size: 35,
-          color: isDarkMode ? const Color(0xff5562EB) : Colors.black,
+          color: widget.dark ? const Color(0xff5562EB) : Colors.black,
         ),
         const Gap(30),
         Text(
           widget.text,
           style: TextStyle(
             fontSize: 16,
-            color: isDarkMode ? Colors.white : Colors.black,
+            color: widget.dark ? Colors.white : Colors.black,
           ),
         )
       ],

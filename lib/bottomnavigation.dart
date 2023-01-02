@@ -7,8 +7,9 @@ import 'package:flutter_application_1/profile.dart';
 import 'package:flutter_application_1/stat.dart';
 
 class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({super.key, required this.page});
+  const BottomNavigation({super.key, required this.page, required this.dark});
   final String page;
+  final bool dark;
 
   @override
   State<BottomNavigation> createState() => _BottomNavigationState();
@@ -17,8 +18,8 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
-    var brightness = SchedulerBinding.instance.window.platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
+    // var brightness = SchedulerBinding.instance.window.platformBrightness;
+    // bool widget.dark = brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 35,
@@ -31,7 +32,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
             icon: Icon(
               Icons.home_rounded,
               size: (widget.page == "Home") ? 30 : 25,
-              color: isDarkMode
+              color: widget.dark
                   ? (widget.page == "Home")
                       ? const Color(0xff5562EB)
                       : const Color(0xFF979797)
@@ -54,7 +55,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           IconButton(
             icon: Icon(
               Icons.pie_chart_rounded,
-              color: isDarkMode
+              color: widget.dark
                   ? (widget.page == "Stat")
                       ? const Color(0xff5562EB)
                       : const Color(0xFF979797)
@@ -78,7 +79,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           IconButton(
             icon: Icon(
               Icons.wallet_rounded,
-              color: isDarkMode
+              color: widget.dark
                   ? (widget.page == "Add")
                       ? const Color(0xff5562EB)
                       : const Color(0xFF979797)
@@ -102,7 +103,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           IconButton(
             icon: Icon(
               Icons.settings,
-              color: isDarkMode
+              color: widget.dark
                   ? (widget.page == "Profile")
                       ? const Color(0xff5562EB)
                       : const Color(0xFF979797)

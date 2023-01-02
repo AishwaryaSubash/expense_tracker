@@ -148,8 +148,9 @@ class _ProfileState extends State<Profile> {
           ),
         ],
       ),
-      bottomNavigationBar: const BottomNavigation(
+      bottomNavigationBar: BottomNavigation(
         page: "Profile",
+        dark: isDarkMode,
       ),
       body: (data != null)
           ? SingleChildScrollView(
@@ -216,44 +217,54 @@ class _ProfileState extends State<Profile> {
                                   },
                                 );
                               },
-                              child: const ProfileListing(
+                              child: ProfileListing(
                                 icons: Icons.currency_rupee_rounded,
                                 text: "Add Income",
+                                dark: isDarkMode,
                               ),
                             ),
                           ),
                           const Gap(10),
                           Row(
-                            children: const [
+                            children: [
                               Expanded(
-                                child: Divider(),
+                                child: Divider(
+                                  color: isDarkMode
+                                      ? const Color(0xFF5562EB)
+                                      : const Color(0x551E1F28),
+                                ),
                               ),
                             ],
                           ),
                           const Gap(25),
-                          const ProfileListing(
+                          ProfileListing(
                             icons: Icons.person_add,
                             text: "Invite Friends",
+                            dark: isDarkMode,
                           ),
                           const Gap(25),
-                          const ProfileListing(
+                          ProfileListing(
                             icons: Icons.person,
                             text: "Account info",
+                            dark: isDarkMode,
                           ),
                           const Gap(25),
-                          const ProfileListing(
+                          ProfileListing(
                             icons: Icons.mail,
                             text: "Message center",
+                            dark: isDarkMode,
                           ),
                           const Gap(25),
-                          const ProfileListing(
+                          ProfileListing(
                             icons: Icons.security_rounded,
                             text: "Login and security",
+                            dark: isDarkMode,
                           ),
                           const Gap(25),
-                          const ProfileListing(
+                          ProfileListing(
                             icons: Icons.lock,
                             text: "Data and privacy",
+                            dark: isDarkMode,
                           ),
                           const Gap(25),
                         ],
@@ -263,11 +274,13 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
             )
-          :  Padding(
+          : Padding(
               padding: const EdgeInsets.all(20.0),
               child: SpinKitCircle(
                 size: 100,
-                color: isDarkMode? const Color(0xff5562EB): const Color(0xff1d2a31),
+                color: isDarkMode
+                    ? const Color(0xff5562EB)
+                    : const Color(0xff1d2a31),
               ),
             ),
     );

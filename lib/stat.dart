@@ -188,8 +188,9 @@ class _StatState extends State<Stat> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavigation(
+      bottomNavigationBar: BottomNavigation(
         page: "Stat",
+        dark: isDarkMode,
       ),
       body: (data != null)
           ? RefreshIndicator(
@@ -235,7 +236,9 @@ class _StatState extends State<Stat> {
                         setShow: setShow,
                       ),
                       const Gap(20),
-                      (show == 0) ?  WeeklyChat(userId:res) : const MonthlyChart(),
+                      (show == 0)
+                          ? WeeklyChat(userId: res)
+                          : const MonthlyChart(),
                       const Gap(20),
                       Text(
                         "Expenses",

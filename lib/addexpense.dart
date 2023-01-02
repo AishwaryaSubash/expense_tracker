@@ -23,8 +23,9 @@ class _AddExpenseState extends State<AddExpense> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: null,
-      bottomNavigationBar: const BottomNavigation(
+      bottomNavigationBar: BottomNavigation(
         page: "Add",
+        dark: isDarkMode,
       ),
       body: Stack(
         children: [
