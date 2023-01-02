@@ -241,8 +241,33 @@ class _InputFieldsState extends State<InputFields> {
                       );
                     }
                     var result = await _futureAlbum;
+                    print(result);
 
                     if (result["statusCode"] == 403) {
+                      showDialog<String>(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Error'),
+                          content: Text(
+                            result["message"][0],
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    isLoading = false;
+                                  },
+                                );
+                                Navigator.pop(context, 'OK');
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else if (result["verified"] == false) {
                       showDialog<String>(
                         barrierDismissible: false,
                         context: context,
