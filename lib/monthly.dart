@@ -17,6 +17,7 @@ class MonthlyChart extends StatefulWidget {
 class _MonthlyChartState extends State<MonthlyChart> {
   late TooltipBehavior _tooltipBehavior;
   var stat;
+
   final List<MonthData> monthData = [];
   Future<dynamic> fetchAlbum() async {
     final response = await http.get(
@@ -42,7 +43,7 @@ class _MonthlyChartState extends State<MonthlyChart> {
           stat = jsonDecode(response.body);
         },
       );
-      print(stat);
+
       // for (var element in stat) {
       //   // monthData.add(MonthData(element[0], element[1]));
       //   print(element);
@@ -105,11 +106,13 @@ class _MonthlyChartState extends State<MonthlyChart> {
                           yValueMapper: (MonthData data, _) => data.y)
                     ])),
           )
-        : const Padding(
-            padding: EdgeInsets.all(20.0),
+        : Padding(
+            padding: const EdgeInsets.all(20.0),
             child: SpinKitCircle(
               size: 100,
-              color: Color(0xff1d2a31),
+              color: isDarkMode
+                  ? const Color(0xff5562EB)
+                  : const Color(0xff1d2a31),
             ),
           );
   }
@@ -118,6 +121,6 @@ class _MonthlyChartState extends State<MonthlyChart> {
 class MonthData {
   MonthData(this.x, this.y, this.color);
   final String x;
-  final double y;
+  final int y;
   final Color color;
 }
