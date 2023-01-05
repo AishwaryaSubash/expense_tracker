@@ -55,6 +55,7 @@ class _HomePageState extends State<HomePage> {
     );
 
     if (response.statusCode == 200) {
+      print(response);
       return true;
     } else {
       return false;
@@ -135,7 +136,7 @@ class _HomePageState extends State<HomePage> {
         ],
         // backgroundColor: const Color(0xFFf6f6f6),
       ),
-      bottomNavigationBar:  BottomNavigation(
+      bottomNavigationBar: BottomNavigation(
         page: "Home",
         dark: isDarkMode,
       ),
@@ -181,9 +182,29 @@ class _HomePageState extends State<HomePage> {
                                   Slidable(
                                     key: ValueKey(i["id"]),
                                     endActionPane: ActionPane(
+                                      dismissible: DismissiblePane(
+                                        key: ValueKey(i["id"]),
+                                        onDismissed: () async {
+                                          setState(() {
+                                            _futureAlbum = deleteAlbum(
+                                              i["id"],
+                                            );
+                                            data["expense"].removeWhere(
+                                                (j) => j["id"] == i["id"]);
+                                          });
+
+                                          var result = await _futureAlbum;
+                                          // print(result);
+
+                                          if (result == true) {
+                                            // data["expense"].remove(i["id"]);
+                                            refreshPull();
+                                          }
+                                        },
+                                      ),
                                       extentRatio: 0.3,
                                       dragDismissible: true,
-                                      motion: const ScrollMotion(),
+                                      motion: const StretchMotion(),
                                       children: [
                                         SlidableAction(
                                           borderRadius: BorderRadius.circular(
@@ -202,6 +223,7 @@ class _HomePageState extends State<HomePage> {
 
                                             if (result == true) {
                                               refreshPull();
+                                              print(data["expense"]);
                                             }
                                           },
                                           backgroundColor: Colors.red,

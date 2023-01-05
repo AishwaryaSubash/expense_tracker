@@ -65,7 +65,6 @@ class _WeeklyChatState extends State<WeeklyChat> {
       setState(() {
         stat = jsonDecode(response.body);
       });
-
       for (var element in stat) {
         weekData.add(WeekData(days[element["day"]], element["_sum"]["amount"],
             colors[element["day"]]));

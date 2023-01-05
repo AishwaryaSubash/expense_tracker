@@ -238,7 +238,7 @@ class _StatState extends State<Stat> {
                       const Gap(20),
                       (show == 0)
                           ? WeeklyChat(userId: res)
-                          : const MonthlyChart(),
+                          : MonthlyChart(userId: res),
                       const Gap(20),
                       Text(
                         "Expenses",
