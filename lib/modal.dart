@@ -25,7 +25,10 @@ class _ModalState extends State<Modal> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -79,7 +82,6 @@ class _ModalState extends State<Modal> {
                         const Gap(30),
                         Container(
                           decoration: const BoxDecoration(
-                            backgroundBlendMode: BlendMode.colorBurn,
                             color: Color(0xffeae9fe),
                             boxShadow: <BoxShadow>[
                               BoxShadow(
